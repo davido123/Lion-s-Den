@@ -126,6 +126,9 @@
     <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Render\Surface.cpp">
       <Filter>Engine\Render</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Common\constants.h">
@@ -224,5 +227,11 @@
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Surface.h">
       <Filter>Engine\Render</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Map.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Lion%27s Den\Lion%27s Den\ClassDiagram.cd" />
   </ItemGroup>
 </Project>

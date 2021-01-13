@@ -11,7 +11,7 @@
 Box::Box(const Vec2& pos, const Vec2& size, const std::string& font, int font_pt_size) :
         Widget(pos, size)
 {
-    ShowBack(false);
+    ShowBack(true);
 
     _pt_size = font_pt_size;
     _text.Init(0, 0, "", font, font_pt_size);
@@ -22,6 +22,7 @@ Box::Box(const Vec2& pos, const Vec2& size, const std::string& font, int font_pt
 
     SetSize(size);
     SetPos(pos);
+	SetBackGround("button.png", Vec2::ZERO, 32);
 }
 
 Box::~Box() {
@@ -105,25 +106,32 @@ void Box::SetText(const std::string &str) {
 
 
     std::istringstream stream(_str_text);
+	std::vector <std::string> lines;
     std::string line;
 
     int row = 0;
+	int rows = 0;
     int max_width = 0;
 
     int row_step = _pt_size + _line_spacing;
 
-    while(std::getline(stream, line)){
-        _text.SetText(line);
-        _text.SetPos(0, row);
-        _text.Draw();
+	while (std::getline(stream, line)) {
+		lines.push_back(line);
+		rows++;
+	}
 
-        row += row_step;//_text.GetH() + _line_spacing;
+	for (int i = 0; i < lines.size(); i++)
+	{
+		_text.SetText(lines[i]);
+		_text.SetPos(GetSize().x / 2 - _text.GetW() / 2 - _text_offset.w, GetSize().y/2 - (row_step * rows)/2 - row_step/2 + row);
+		_text.Draw();
 
-        if(_text.GetW() >= max_width){
-            max_width = _text.GetW();
-        }
-    }
+		row += row_step;//_text.GetH() + _line_spacing;
 
+		if (_text.GetW() >= max_width) {
+			max_width = _text.GetW();
+		}
+	}
     //Store size of text to vars
     _text_size.x = max_width;
     _text_size.y = row - _line_spacing;
@@ -139,6 +147,7 @@ void Box::SetText(const std::string &str) {
     //back to default target
     SDL_SetRenderDrawColor(Window::GetRenderer(), background.r, background.g, background.b, 0);
     SDL_SetRenderTarget(Window::GetRenderer(), nullptr);
+	
 }
 
 void Box::SetOffset(const SDL_Rect& offset){

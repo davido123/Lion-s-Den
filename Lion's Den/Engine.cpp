@@ -106,9 +106,9 @@ bool Engine::Core_Init() {
     PhysFS::setWriteDir("../tmp");
     #endif
 
-    Resources::SetDefaultFont("PressStart2P.ttf");
+    Resources::SetDefaultFont("atwriter.ttf");
     Resources::SetDefaultFontPtsize(9);
-    Resources::SetDefaultFontStyle("pgui.png");
+    //Resources::SetDefaultFontStyle("pgui.png");
 
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         std::cerr << "SDL_Init Error: " << SDL_GetError() << std::endl;
@@ -121,7 +121,7 @@ bool Engine::Core_Init() {
     GUI::OnInit();
     
     if (!Window::IsInitialised()) {
-        Window::SetMode(800, 640, false);
+		Window::SetMode(800, 600, false, "Lion's Den");
     }
 
     Surface::BeginViewport(Vec2::ZERO, Window::GetSize());

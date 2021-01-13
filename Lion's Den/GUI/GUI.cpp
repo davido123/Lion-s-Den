@@ -46,7 +46,7 @@ void GUI::OnUpdate(){
 }
 
 void GUI::OnRender(){
-
+	
 }
 
 void  GUI::SetTopObject(Object* obj){

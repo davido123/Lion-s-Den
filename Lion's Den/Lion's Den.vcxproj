@@ -160,6 +160,7 @@
     <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\IO\Mouse.cpp" />
     <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\IO\TextFile.cpp" />
     <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\main.cpp" />
+    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Map.cpp" />
     <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Player.cpp" />
     <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Render\Animation.cpp" />
     <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Render\Camera.cpp" />
@@ -195,11 +196,15 @@
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\IO\Keyboard.h" />
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\IO\Mouse.h" />
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\IO\TextFile.h" />
+    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Map.h" />
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Animation.h" />
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Camera.h" />
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Drawer.h" />
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Sprite.h" />
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Surface.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Lion%27s Den\Lion%27s Den\ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

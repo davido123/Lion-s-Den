@@ -47,6 +47,7 @@ public:
     friend const Vec2 operator-(const Vec2& left, const Vec2& right);
     friend const Vec2 operator*(const Vec2& left, const Vec2& right);
     friend const Vec2 operator*(const Vec2& left, const float& scale);
+	friend const Vec2 operator/(const Vec2& left, const float& scale);
 
     Vec2& operator+=(const Vec2& right);
     Vec2& operator-=(const Vec2& right);
@@ -177,6 +178,10 @@ const Vec2 operator*(const Vec2& left, const Vec2& right) {
 inline
 const Vec2 operator*(const Vec2& left, const float& scale) {
     return Vec2(left.x * scale, left.y * scale);
+}
+inline
+const Vec2 operator/(const Vec2& left, const float& scale) {
+	return Vec2(left.x / scale, left.y / scale);
 }
 
 inline

@@ -2,19 +2,22 @@
 #define ENGINE_BUTTON_H
 
 #include <functional>
+#include <string>
 #include "GUI/Widgets/Box.h"
 
 class Button: public Box {
 public:
-    Button(const Vec2& pos, const Vec2& size, const std::string& font, int font_pt_size);
+    Button(const Vec2& pos, const Vec2& size, const std::string& font, int font_pt_size, std::string text);
     virtual ~Button();
 
     void SetStyle(const std::string& style,
                   const Vec2& pos_normal,
-                  const Vec2& pos_pressed,
                   const Vec2 &pos_hovered,
+				  const Vec2& pos_pressed,
                   int tile_resolution);
-    virtual void SetText(const std::string& str);
+	void SetStyle(const std::string& style,
+				  int tile_resolution);
+    //virtual void SetText(const std::string& str);
 
 private:
     std::string _back_style;

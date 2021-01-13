@@ -1,6 +1,6 @@
 #include "Button.h"
 
-Button::Button(const Vec2& pos, const Vec2& size, const std::string& font, int font_pt_size) :
+Button::Button(const Vec2& pos, const Vec2& size, const std::string& font, int font_pt_size, std::string text="") :
 Box(pos, size, font, font_pt_size) {
     ShowBack(true);
 
@@ -15,6 +15,8 @@ Box(pos, size, font, font_pt_size) {
         SetOffset(offset);
         CalcTextPos();
     };
+	SetText(text);
+	SetStyle("button_style.png", 32);
 
     AddAction("mousedown", [this, set_offset](){
         SetBackGround(_back_style, _pos_pressed, _tile_resolution);
@@ -42,20 +44,34 @@ Box(pos, size, font, font_pt_size) {
 Button::~Button() {
 }
 
+
 void Button::SetStyle(const std::string& style,
                       const Vec2& pos_normal,
-                      const Vec2& pos_pressed,
                       const Vec2& pos_hovered,
-                      int tile_resolution = 8) {
+					  const Vec2& pos_pressed,
+                      int tile_resolution) {
     _back_style = style;
     _pos_normal = pos_normal;
-    _pos_pressed = pos_pressed;
     _pos_hovered = pos_hovered;
+	_pos_pressed = pos_pressed;
     _tile_resolution = tile_resolution;
 
     SetBackGround(_back_style, _pos_normal, _tile_resolution);
 }
+void Button::SetStyle(const std::string& style,
+					  int tile_resolution) {
+	_back_style = style;
+	_pos_normal = Vec2::ZERO;
+	_pos_hovered = _pos_normal+(Vec2::RIGHT * tile_resolution * 3);
+	_pos_pressed = _pos_hovered+(Vec2::RIGHT * tile_resolution * 3);
+	_tile_resolution = tile_resolution;
 
+	SetBackGround(_back_style, _pos_normal, _tile_resolution);
+}
+
+
+
+/*
 void Button::SetText(const std::string& str){
     Box::SetText(str);
 
@@ -65,3 +81,4 @@ void Button::SetText(const std::string& str){
     Box::SetText(str);
     CalcTextPos();
 }
+*/

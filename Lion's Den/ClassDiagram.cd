@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Engine" Collapsed="true">
+    <Position X="16.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CIAAAIAAAGUAAAAAAEAAAEAAMQAAgAYAtAABIAEAAAQ=</HashCode>
+      <FileName>Engine.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player" Collapsed="true">
+    <Position X="1" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQACBAAAAAAAAAAABAEAIQEAABA=</HashCode>
+      <FileName>C:\CB_Projects\LionsDen\include\Player.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FPS_counter" Collapsed="true">
+    <Position X="18.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAEAQAAAAAAAEAABAAAQEgAEA=</HashCode>
+      <FileName>Common\FPScounter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Audio" Collapsed="true">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEggAABMQCQCAABogAEAAEMAEAQAKECEoQgigAOApQA=</HashCode>
+      <FileName>Core\Audio.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Collider" Collapsed="true">
+    <Position X="20" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAgAAIIIAAAAQAMAAEQAAQAAAMAgHQAAAAAAYAAAA=</HashCode>
+      <FileName>Core\Collider.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Object" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IIUBoAAJwYAQAgSgAhxaIIhwQAAJAEESAMAgIKMAAAI=</HashCode>
+      <FileName>Core\Object.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Resources" Collapsed="true">
+    <Position X="16.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gEiAAAEDIQRAQAAACgCAAmAQEAgCAAAAAAAogJAAABI=</HashCode>
+      <FileName>Core\Resources.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Timer" Collapsed="true">
+    <Position X="14.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQgAAgIAgAABAAAEgAAAAACACAAAIAAACgAAAAEAAA=</HashCode>
+      <FileName>Core\Timer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vec2" Collapsed="true">
+    <Position X="16.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAKBAAAgACAAgEEFAABAQAAGAISAAAgAARghAAAAQA=</HashCode>
+      <FileName>Core\Vec2.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cursor" Collapsed="true">
+    <Position X="21.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAgAAAAAAAAAAACBAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>GUI\Cursor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GUI" Collapsed="true">
+    <Position X="20" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAABAQAAAAAAgIAACBBAAAAYAAAAAICEAAAA=</HashCode>
+      <FileName>GUI\GUI.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Text" Collapsed="true">
+    <Position X="21.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAEAACAQAIAwAAAIAIAAAAAACFQAAIAAhCCAAAAAA=</HashCode>
+      <FileName>GUI\Text.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Widget" Collapsed="true">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <NestedTypes>
+      <Typedef Name="Widget::Actionss" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GUI\Widget.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Struct Name="Widget::__unnamed_struct_0175_1" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GUI\Widget.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQYAAAYAAAAEhAAIAIASAAAQAAFQEBAAEAAITEgAAA=</HashCode>
+      <FileName>GUI\Widget.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Window" Collapsed="true">
+    <Position X="18.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAQoAAAgCAAGAIIABAEQYAACIAAAACCGKAAA8=</HashCode>
+      <FileName>GUI\Window.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Box" Collapsed="true">
+    <Position X="5.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AYAgEAAAAIAAAAgAhIIJACAAAA4AAAGIAFAAIAAAAAA=</HashCode>
+      <FileName>GUI\Widgets\Box.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Button" Collapsed="true">
+    <Position X="3.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AMAAAAQCAAAAAAAAAIgAAEAAAAAACAAAAAAAAAEAAAA=</HashCode>
+      <FileName>GUI\Widgets\Button.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CheckBox" Collapsed="true">
+    <Position X="10" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAABEBAAAAAAAAAIBAQAAAAAAAAAAQAIAAAICMAAAA=</HashCode>
+      <FileName>GUI\Widgets\CheckBox.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ComboBox" Collapsed="true">
+    <Position X="5.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACABBAAAAAAAIAgEAAAgAAAACEAAMAAAAAAAAA=</HashCode>
+      <FileName>GUI\Widgets\ComboBox.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProgressBar" Collapsed="true">
+    <Position X="7.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AJAAAAAAIIAAEgBAIIBAAIAACAAAAAAAIAAAIAAAAAA=</HashCode>
+      <FileName>GUI\Widgets\ProgressBar.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScrollArea" Collapsed="true">
+    <Position X="12.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAACAAAIAQAAAAAIQIAKAAABgIAAAAABAgIAQAAKE=</HashCode>
+      <FileName>GUI\Widgets\ScrollArea.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Animation" Collapsed="true">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAIAEAAAAQAAAABAgIAgAAAECECABAggAQAEAAIAAAA=</HashCode>
+      <FileName>Render\Animation.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Camera" Collapsed="true">
+    <Position X="18.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIACAABAAIAAAAQAIAAAAAgAAAAAAAAEAAgAAEQIYAA=</HashCode>
+      <FileName>Render\Camera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Drawer" Collapsed="true">
+    <Position X="14.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAACgAAAEAAAAAIAAJAAA=</HashCode>
+      <FileName>Render\Drawer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sprite" Collapsed="true">
+    <Position X="18.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAEACACAQAAAhAAAAIkAAABASAQAAARAAAgAABgAgI=</HashCode>
+      <FileName>Render\Sprite.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Surface" Collapsed="true">
+    <Position X="20" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAgAAAAAAAgAAAAAAEAAA0AAABAIgAQAAAACgAAE=</HashCode>
+      <FileName>Render\Surface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="File" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAIJCAAAQAAAAgAAAUCAAAEAAIAAGAEAA=</HashCode>
+      <FileName>IO\File.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Keyboard" Collapsed="true">
+    <Position X="21.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>IO\Keyboard.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mouse" Collapsed="true">
+    <Position X="14.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAgAAAAAAAAAAAAUQEEBAgAAAAACCABEAAAAAAEAAA=</HashCode>
+      <FileName>IO\Mouse.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextFile" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAAAgAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>IO\TextFile.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Typedef Name="ObjListType" Collapsed="true">
+    <Position X="14.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Object.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Enum Name="turn_side" Collapsed="true">
+    <Position X="21.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAABAAAAAAAAAAgAAAAAQAIAAAA=</HashCode>
+      <FileName>C:\CB_Projects\LionsDen\include\Player.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="obj_type" Collapsed="true">
+    <Position X="20" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIEAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Core\Object.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="widget_state" Collapsed="true">
+    <Position X="14.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAEAAAAAAAAABAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>GUI\Widget.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="keycode" Collapsed="true">
+    <Position X="14.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ZiEeqntrgx6GTMtUROrPS22M/c3/wHgh2W2f2Ynd+jU=</HashCode>
+      <FileName>IO\Keyboard.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="mouse_button" Collapsed="true">
+    <Position X="16.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAgAAAAAAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IO\Mouse.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="mouse_wheel" Collapsed="true">
+    <Position X="18.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IO\Mouse.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
