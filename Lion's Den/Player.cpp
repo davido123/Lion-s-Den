@@ -2,10 +2,46 @@
 
 Player::Player()
 {
-    Vec2 sprite_size(16, 16);
+    Vec2 sprite_size(64, 64);
     SetSize(sprite_size);
-    _sprite.SetTexture(Resources::GetTexture("test.png"));
+	_side = SIDE_NONE;
     _speed=100;
+
+	//stay
+	_anim_stay.SetBeginFrame(20);
+	_anim_stay.SetMaxFrame(20);
+	_anim_stay.SetCurrentFrame(20);
+
+	//Running up side
+	_anim_run_up.SetBeginFrame(0);
+	_anim_run_up.SetMaxFrame(8);
+	_anim_run_up.SetCurrentFrame(0);
+
+	//Running left side
+	_anim_run_left.SetBeginFrame(9);
+	_anim_run_left.SetMaxFrame(17);
+	_anim_run_left.SetCurrentFrame(9);
+
+	//Running down side
+	_anim_run_down.SetBeginFrame(18);
+	_anim_run_down.SetMaxFrame(26);
+	_anim_run_down.SetCurrentFrame(18);
+
+	//Running right side
+	_anim_run_right.SetBeginFrame(27);
+	_anim_run_right.SetMaxFrame(35);
+	_anim_run_right.SetCurrentFrame(27);
+
+	_sprite.SetTexture(Resources::GetTexture("male_walkcycle.png"));
+	_sprite.SetAnimation(_anim_stay);
+	_sprite.SetFrameSize(sprite_size);
+	_sprite.SetAnimationRate(300);
+
+
+
+
+
+
 
 
     //ctor
@@ -17,7 +53,7 @@ Player::~Player()
 }
 
 void Player::OnRender() {
-    _sprite.Draw(GetGlobalPos(), Vec2(32, 32), Window::GetCamera());
+    _sprite.Draw(GetGlobalPos(), Vec2(64, 64), Window::GetCamera());
 }
 void Player::OnUpdate() {
 
@@ -25,7 +61,7 @@ void Player::OnUpdate() {
         else if (Keyboard::isKeyDown(KEY_LEFT)) {Turn(SIDE_LEFT);}
         else if (Keyboard::isKeyDown(KEY_UP)) {Turn(SIDE_UP);}
         else if (Keyboard::isKeyDown(KEY_DOWN)) {Turn(SIDE_DOWN);}
-        else if (Keyboard::isKeyDown(KEY_SPACE)) {MoveRandom(rand()%4+1);}
+        //else if (Keyboard::isKeyDown(KEY_SPACE)) {MoveRandom(rand()%4+1);}
         else {
             Turn(SIDE_NONE);
         }
@@ -40,22 +76,28 @@ void Player::OnUpdate() {
 void Player::Turn(turn_side side) {
     switch (side) {
         case SIDE_RIGHT:
-            Move(Vec2(+1.0f, 0.0f));
+			if (_side != side) _sprite.SetAnimation(_anim_run_right);
+            Move(Vec2(+2.0f, 0.0f));
             break;
 
         case SIDE_LEFT:
-            Move(Vec2(-1.0f, 0.0f));
+			if (_side != side) _sprite.SetAnimation(_anim_run_left);
+            Move(Vec2(-2.0f, 0.0f));
             break;
 
         case SIDE_UP:
-            Move(Vec2(0.0f, -1.0f));
+			if (_side != side) _sprite.SetAnimation(_anim_run_up);
+            Move(Vec2(0.0f, -2.0f));
             break;
 
         case SIDE_DOWN:
-            Move(Vec2(0.0f, +1.0f));
+			if (_side != side) _sprite.SetAnimation(_anim_run_down);
+            Move(Vec2(0.0f, +2.0f));
             break;
 
         case SIDE_NONE:
+			_sprite.SetAnimation(_anim_stay);
+
             break;
     }
 

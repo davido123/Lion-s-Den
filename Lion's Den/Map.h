@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <string> 
+#include <vector>
 
 #include <Core/Resources.h>
 #include <Render/Surface.h>
@@ -19,7 +20,8 @@ enum tile {
 	TILE_TREE_SPRUCE,
 	TILE_OBJECT,
 	TILE_BUILDING,
-	TILE_NONE // END OF TILES
+	TILE_GROUND,
+	TILE_NONE, // END OF TILES(must be last)
 };
 
 class Map {
@@ -53,6 +55,7 @@ public:
 	size_t GetH();
 
 private:
+	Uint32 seed;
 	tile** _Tile_map;
 	size_t _max_grid_x;
 	size_t _max_grid_y;
@@ -67,6 +70,8 @@ private:
 	Sprite _sprite_mountain;
 	Sprite _sprite_tree;
 	Sprite _sprite_tree_spruce;
+	//ground tile frame 89 90 91 92 93 94, 108,109,110,111,112,113
+	Sprite _sprite_ground;
 
 	void DrawTile(const Vec2& pos_local, tile mtile);
 };

@@ -45,9 +45,6 @@
     <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Player.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Core\Audio.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
@@ -129,6 +126,9 @@
     <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Common\constants.h">
@@ -142,9 +142,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Engine.h">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\CB_Projects\LionsDen\include\Player.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Core\Audio.h">
       <Filter>Engine\Core</Filter>
@@ -228,6 +225,9 @@
       <Filter>Engine\Render</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Map.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Player.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
