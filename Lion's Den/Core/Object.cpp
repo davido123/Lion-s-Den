@@ -207,10 +207,10 @@ void Object::SetDefaults(){
 
 //if you want your object to be clicked call this function on update tick
 void Object::CheckTop() {
-	
+
     if(Mouse::Intersect(this)){
         const Surface::viewport* view = &(Surface::GetLastViewport());
-		
+
         if(!_camera){
             SetCamera(Window::GetCamera());
         }
