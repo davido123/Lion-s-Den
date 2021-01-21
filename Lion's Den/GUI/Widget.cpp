@@ -53,6 +53,7 @@ void Widget::SetBackGround(const std::string& tileset,const Vec2& skin, int tile
     if(!texture_skin){
         return;
     }
+
     SDL_Rect rect = {0, 0, static_cast<int>(GetSize().x), static_cast<int>(GetSize().y)};
 
     SDL_Texture *texture_back = SDL_CreateTexture(Window::GetRenderer(), SDL_PIXELFORMAT_RGBA8888,
@@ -79,17 +80,13 @@ void Widget::OnTopMouseEvent(){
     }else if(_state == WIDGET_PRESSED){
             EmitAction("mouseup");
             _state = WIDGET_NORMAL;
-
     }
     else if(_state != WIDGET_HOVERED){
         EmitAction("mousehover");
         _state = WIDGET_HOVERED;
-
     }
 
     _was_intersected = true;
-
-
 }
 
 void Widget::OnTopMouseWheelEvent(){
