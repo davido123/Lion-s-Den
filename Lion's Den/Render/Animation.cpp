@@ -4,7 +4,7 @@
  *  Created on: 22 июля 2014 г.
  *      Author: snickers
  */
-
+#include <iostream>
 #include "Animation.h"
 
 Animation::Animation() :
@@ -18,12 +18,18 @@ Animation::Animation() :
 //constructor
 }
 
-void Animation::SetCurrentFrame(Uint16 frame) {
-    if (frame >= _begin_frame && frame <= _max_frame) {
+void Animation::SetCurrentFrame(Uint16 frame) {//temporary modified
+	/*
+	if (frame >= _begin_frame && frame <= _max_frame) {
         _current_frame = frame;
     }else{
         _current_frame = _begin_frame;
     }
+	*/
+
+    _current_frame = frame;
+    
+
 }
 
 void Animation::SetFrameRate(Uint16 rate) {

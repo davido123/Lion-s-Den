@@ -22,12 +22,13 @@ Box::Box(const Vec2& pos, const Vec2& size, const std::string& font, int font_pt
 
     SetSize(size);
     SetPos(pos);
-	SetBackGround("button.png", Vec2::ZERO, 32);
+	SetBackGround("borders.png", Vec2::ZERO, 32);
 }
 
 Box::~Box() {
     SDL_DestroyTexture(_text_texture);
 }
+
 
 void Box::OnRender() {
     if (_visible) {

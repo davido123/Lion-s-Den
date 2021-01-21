@@ -38,6 +38,7 @@ Object* layer_gui;
 
 Box* mainMenu;
 Box* menuOptions;
+Box* hud;
 Button* Button_mainMenu_start;
 Button* Button_mainMenu_options;
 Button* Button_mainMenu_exit;
@@ -59,10 +60,12 @@ int ii = 0;
 bool GameState_play = false;
 
 
+
 void Engine::OnInit() {
 
 	map = new Map;
 	map->Load("Data/Maps/Map.txt");
+	
 
 
 
@@ -82,41 +85,49 @@ void Engine::OnInit() {
 	
 	mainMenu = new Box(menusize/2, menusize, Resources::GetDefaultFont(), 16);
 	menuOptions = new Box(menusize / 2, menusize, Resources::GetDefaultFont(), 16);
+	hud = new Box(Vec2(0.0f,0.0f), Vec2(200.0f, 70.0f), Resources::GetDefaultFont(), 16);
+
+
+	layer_gui->Connect(hud);
 	menuOptions->Show(false);
 	layer_gui->Connect(mainMenu);
 	layer_gui->Connect(menuOptions);
+	//layer_gui->Connect(gui);
 	
 
-	Button_mainMenu_start = new Button(Vec2(150.0f, 50.0f), Vec2(50.0f, 50.0f), Resources::GetDefaultFont(), 16,"Start");
+	Button_mainMenu_start = new Button(Vec2(mainMenu->GetPos().x/2, 50.0f), Vec2(70.0f, 50.0f), Resources::GetDefaultFont(), 16,"Start");
 	Button_mainMenu_start->SetLabel("Start");
 	mainMenu->Connect(Button_mainMenu_start);
 
-	Button_mainMenu_options = new Button(Vec2(150.0f, 150.0f), Vec2(50.0f, 50.0f), Resources::GetDefaultFont(), 16,"Options");
+	Button_mainMenu_options = new Button(Vec2(mainMenu->GetPos().x / 2, 150.0f), Vec2(100.0f, 50.0f), Resources::GetDefaultFont(), 16,"Options");
 	Button_mainMenu_options->SetLabel("Options");
 	mainMenu->Connect(Button_mainMenu_options);
 
-	Button_mainMenu_exit = new Button(Vec2(150.0f, 250.0f), Vec2(50.0f, 50.0f), Resources::GetDefaultFont(), 16,"Exit");
+	Button_mainMenu_exit = new Button(Vec2(mainMenu->GetPos().x / 2, 230.0f), Vec2(60.0f, 50.0f), Resources::GetDefaultFont(), 16,"Exit");
 	Button_mainMenu_exit->SetLabel("Exit");
 	mainMenu->Connect(Button_mainMenu_exit);
 
 	
-	
-
-
-		
-
-
-
-
 	//Plain text
-	test = new Text();
-	test->Init(600, 400, "GRASS", Resources::GetDefaultFont(), 14);
+	//test = new Text();
+	//test->Init(600, 400, "GRASS", Resources::GetDefaultFont(), 14);
 
-	
 
-	
+
+
+
+
+
+
+
+
+
+
+
+
 
 	player = new Player();
+	player->SetPos(Vec2(300.0f,300.0f));
 	layer_player->Connect(player);
 
 	
@@ -169,7 +180,7 @@ void Engine::OnEvent(SDL_Event *event, const Uint8 *keyboardState) {
 
 
 void Engine::OnUpdate() {
-	test->SetText(std::to_string(ii));
+	//test->SetText(std::to_string(ii));
 
 	mainMenu->CheckTop();
 	Button_mainMenu_exit->CheckTop();
@@ -177,7 +188,7 @@ void Engine::OnUpdate() {
 }
 
 void Engine::OnRender() {
-	test->Draw();
+	//test->Draw();
 
 
 	/*
@@ -219,3 +230,4 @@ int main() {
 	return 0;
 }
 #endif
+//testing for github

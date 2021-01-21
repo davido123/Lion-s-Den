@@ -16,7 +16,7 @@ Box(pos, size, font, font_pt_size) {
         CalcTextPos();
     };
 	SetText(text);
-	SetStyle("button_style.png", 32);
+	SetStyle("borders.png", 32);
 
     AddAction("mousedown", [this, set_offset](){
         SetBackGround(_back_style, _pos_pressed, _tile_resolution);

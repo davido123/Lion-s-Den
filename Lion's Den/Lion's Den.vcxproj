@@ -41,7 +41,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -169,7 +169,6 @@
     <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Render\Surface.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\CB_Projects\LionsDen\include\Player.h" />
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Common\constants.h" />
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Common\FPScounter.h" />
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Common\sys.h" />
@@ -197,6 +196,7 @@
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\IO\Mouse.h" />
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\IO\TextFile.h" />
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Map.h" />
+    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Player.h" />
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Animation.h" />
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Camera.h" />
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Drawer.h" />
