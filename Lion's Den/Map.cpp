@@ -9,37 +9,16 @@ Map::Map() {
 	_max_grid_y = 0;
 	_tile_grid_size = 0;
 	_Tile_map = nullptr;
-
+	
+	
 	Vec2 frame(32, 32);
 
-	//setup grass
-	_sprite_grass.SetTexture(Resources::GetTexture("button.png"));
-	_sprite_grass.SetFrameSize(frame);
-	_sprite_grass.SetFrame(1);
+	//setup ground tile
+	_sprite_ground.SetTexture(Resources::GetTexture("Dungeon_Tileset.png"));
+	_sprite_ground.SetFrameSize(frame);
+	_sprite_ground.SetFrame(89);
 
-	//setup plain grass
-	_sprite_plain_grass.SetTexture(Resources::GetTexture("button.png"));
-	_sprite_plain_grass.SetFrameSize(frame);
-	_sprite_plain_grass.SetFrame(22);
 
-	//setup water
-	_sprite_water.SetTexture(Resources::GetTexture("button.png"));
-	_sprite_water.SetFrameSize(frame);
-	_sprite_water.SetFrame(16);
-
-	//setup mountain
-	_sprite_mountain.SetTexture(Resources::GetTexture("button.png"));
-	_sprite_mountain.SetFrameSize(frame);
-	_sprite_mountain.SetFrame(14);
-
-	//setup tree
-	_sprite_tree.SetTexture(Resources::GetTexture("button.png"));
-	_sprite_tree.SetFrameSize(frame);
-	_sprite_tree.SetFrame(12);
-
-	_sprite_tree_spruce.SetTexture(Resources::GetTexture("button.png"));
-	_sprite_tree_spruce.SetFrameSize(frame);
-	_sprite_tree_spruce.SetFrame(32);
 
 	_nosprite.SetFrameSize(frame);
 
@@ -64,7 +43,7 @@ bool Map::Load(std::string path) {
 
 	size_t width;
 	size_t height;
-
+	file_map >> seed;
 	file_map >> width;
 	file_map >> height;
 
@@ -150,131 +129,11 @@ void Map::DrawTile(const Vec2& pos_local, tile mtile) {
 
 	Sprite* draw_sprite;
 	switch (mtile) {
-	case TILE_PLAIN_GRASS:
-		draw_sprite = &_sprite_plain_grass;
+
 		break;
-
-	case TILE_GRASS:
-		draw_sprite = &_sprite_grass;
-		break;
-
-	case TILE_MOUNTAIN:
-		if (right == TILE_MOUNTAIN
-			&& left == TILE_MOUNTAIN
-			&& up == TILE_MOUNTAIN) {
-			_sprite_mountain.SetFrame(15);
-		}
-		else {
-			_sprite_mountain.SetFrame(14);
-		}
-		draw_sprite = &_sprite_mountain;
-		break;
-
-	case TILE_TREE:
-		draw_sprite = &_sprite_tree;
-		break;
-
-	case TILE_TREE_SPRUCE:
-		draw_sprite = &_sprite_tree_spruce;
-		break;
-
-	case TILE_WATER:
-		draw_sprite = &_sprite_water;
-
-		_sprite_water.SetFlip(SDL_FLIP_NONE);
-
-		if (left != TILE_WATER && right != TILE_WATER && up != TILE_WATER && down != TILE_WATER) {
-			_sprite_water.SetFrame(20);
-		}
-		else {
-
-
-			//ALL sides is WATER
-			if (right == TILE_WATER && left == TILE_WATER && down == TILE_WATER && up == TILE_WATER) {
-				_sprite_water.SetFrame(16);
-			}                    //RIGHT is WATER
-			else if (right == TILE_WATER) {
-				if (up == TILE_WATER && down == TILE_WATER) {
-					_sprite_water.SetFrame(25);
-				}
-				else if (left == TILE_WATER && down == TILE_WATER) {
-					_sprite_water.SetFrame(24);
-				}
-				else if (left == TILE_WATER && up == TILE_WATER) {
-					_sprite_water.SetFrame(24);
-					_sprite_water.SetFlip(SDL_FLIP_VERTICAL);
-				}
-				else if (up != TILE_WATER && down == TILE_WATER) {
-					_sprite_water.SetFrame(28);
-				}
-				else if (up == TILE_WATER && down != TILE_WATER) {
-					_sprite_water.SetFrame(28);
-					_sprite_water.SetFlip(SDL_FLIP_VERTICAL);
-				}
-				else if (left == TILE_WATER) {
-					_sprite_water.SetFrame(18);
-				}
-				else {
-					_sprite_water.SetFrame(27);
-					_sprite_water.SetFlip(SDL_FLIP_HORIZONTAL);
-				}
-			}                    //LEFT is WATER
-			else if (left == TILE_WATER) {
-				if (up == TILE_WATER && down == TILE_WATER) {
-					_sprite_water.SetFrame(25);
-					_sprite_water.SetFlip(SDL_FLIP_HORIZONTAL);
-				}
-				else if (up != TILE_WATER && down == TILE_WATER) {
-					_sprite_water.SetFrame(28);
-					_sprite_water.SetFlip(SDL_FLIP_HORIZONTAL);
-				}
-				else if (up == TILE_WATER && down != TILE_WATER) {
-					_sprite_water.SetFrame(29);
-				}
-				else {
-					_sprite_water.SetFrame(27);
-				}
-			}                    //UP is WATER
-			else if (up == TILE_WATER) {
-				if (down == TILE_WATER) {
-					_sprite_water.SetFrame(19);
-				}
-				else {
-					_sprite_water.SetFrame(26);
-				}
-			}                    //DOWN is WATER
-			else if (down == TILE_WATER) {
-				if (up == TILE_WATER) {
-					_sprite_water.SetFrame(19);
-				}
-				else if (right == TILE_WATER) {
-					_sprite_water.SetFrame(99);
-				}
-				else {
-					_sprite_water.SetFrame(26);
-					_sprite_water.SetFlip(SDL_FLIP_VERTICAL);
-				}
-			}
-
-
-			//                if (right == TILE_WATER && up == TILE_WATER && down == TILE_WATER && up == TILE_WATER) {
-			//                    _sprite_water.SetFrame(16);
-			//                }
-			//                else if (up == TILE_WATER && down == TILE_WATER) {
-			//                    _sprite_water.SetFrame(19);
-			//                } 
-			//                else if (right == TILE_WATER && up == TILE_WATER && down == TILE_WATER) {
-			//                    _sprite_water.SetFrame(25);
-			//                }
-			//                else if (left == TILE_WATER && up == TILE_WATER && down == TILE_WATER) {
-			//                    _sprite_water.SetFrame(25);
-			//                    _sprite_water.SetFlip(SDL_FLIP_HORIZONTAL);
-			//                }
-			//                else {
-			//
-			//                }
-
-		}
+	case TILE_GROUND:
+		draw_sprite = &_sprite_ground;
+		_sprite_ground.SetFrame(89);
 
 		break;
 

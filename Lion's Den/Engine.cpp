@@ -121,7 +121,7 @@ bool Engine::Core_Init() {
     GUI::OnInit();
     
     if (!Window::IsInitialised()) {
-		Window::SetMode(800, 600, false, "Lion's Den");
+		Window::SetMode(1280, 1080, false, "Lion's Den");
     }
 
     Surface::BeginViewport(Vec2::ZERO, Window::GetSize());
