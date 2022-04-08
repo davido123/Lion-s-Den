@@ -17,7 +17,6 @@ std::unordered_map<std::string, Resources::AudiosBufWrapper>  Resources::_Sounds
 std::string     Resources::_default_font;
 int             Resources::_default_font_ptsize;
 std::string     Resources::_default_style;
-
 const std::string& Resources::GetDefaultFont(){
     return _default_font;
 }
@@ -133,6 +132,7 @@ void* Resources::GetAudio(std::string file_path, bool isMusic){
 
     return wrapped_audio->audio;
 }
+
 
 void Resources::UnloadTexture(std::string file_path){
     SDL_Texture* texture = _Textures[file_path];

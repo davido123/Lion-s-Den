@@ -6,11 +6,13 @@ Sprite::Sprite() :
     _flip(SDL_FLIP_NONE),
     _angle(0),
     _frames_per_width(1),
-    _frames_per_height(1)
+    _frames_per_height(1),
+	_anim_control(new Animation)
 {
     //Constructor
     _anim_rect = {-1, -1, -1, -1};
     _src_rect = _anim_rect;
+    
 }
 
 Sprite::~Sprite() {
@@ -40,8 +42,8 @@ void Sprite::Draw(const Vec2& pos, const Vec2& size, const Camera* camera) {
     //Calc current frame position
     SDL_Rect src_rect;
     if(_frames_per_width != 0){
-        src_rect.x = (_anim_control.GetCurrentFrame() % _frames_per_width) * _anim_rect.w;
-        src_rect.y = (_anim_control.GetCurrentFrame() / _frames_per_width) * _anim_rect.h;
+        src_rect.x = (_anim_control->GetCurrentFrame() % _frames_per_width) * _anim_rect.w;
+        src_rect.y = (_anim_control->GetCurrentFrame() / _frames_per_width) * _anim_rect.h;
     }
     else{
         src_rect.x = 0;
@@ -52,7 +54,7 @@ void Sprite::Draw(const Vec2& pos, const Vec2& size, const Camera* camera) {
     src_rect.h = _anim_rect.h;
 
     Surface::Draw(_texture, &src_rect, &dst_rect, _angle, _flip);
-    _anim_control.OnAnimation(); //update animation state
+    _anim_control->OnAnimation(); //update animation state
 }
 
 void Sprite::SetTexture(SDL_Texture* texture) {
@@ -66,6 +68,7 @@ void Sprite::SetTexture(SDL_Texture* texture) {
         SetFrameSize(Vec2(_src_rect.w, _src_rect.h));
     }
 }
+
 
 void Sprite::SetTexture(const std::string& file){
     SetTexture(Resources::GetTexture(file));
@@ -93,25 +96,39 @@ SDL_RendererFlip Sprite::GetFlip() const{
 
 /*==Animation control==*/
 
-void Sprite::SetAnimation(const Animation& anim){
-
+void Sprite::SetAnimation(Animation* anim){
+    
     //if animations are different
-    if(anim.GetBeginFrame() != _anim_control.GetBeginFrame() || anim.GetMaxFrame() != _anim_control.GetMaxFrame() ){
+    if(anim->GetBeginFrame() != _anim_control->GetBeginFrame() || anim->GetMaxFrame() != _anim_control->GetMaxFrame() ){
         _anim_control = anim;
-        SetFrame(_anim_control.GetCurrentFrame());
+		
+        SetFrame(_anim_control->GetCurrentFrame());
+    }
+    else
+    {
+        
+		_anim_control = anim;
+		
     }
     //else do nothing
+    
+    
+    //SetFrame
+}
+Animation* Sprite::GetAnimation()
+{
+    return _anim_control;
 }
 
 void Sprite::SetAnimation(int begin_frame, int end_frame) {
-    _anim_control.SetBeginFrame(begin_frame);
-    _anim_control.SetMaxFrame(end_frame);
+    _anim_control->SetBeginFrame(begin_frame);
+    _anim_control->SetMaxFrame(end_frame);
 }
 
 void Sprite::SetFrameSize(const Vec2& frame_size) {
     _anim_rect.w = frame_size.x;
     _anim_rect.h = frame_size.y;
-    SetFrame(_anim_control.GetCurrentFrame());
+    SetFrame(_anim_control->GetCurrentFrame());
 }
 
 void Sprite::SetFrame(int frame) {
@@ -123,11 +140,11 @@ void Sprite::SetFrame(int frame) {
         _frames_per_height = _src_rect.h / _anim_rect.h;
     }
 
-    _anim_control.SetCurrentFrame(frame);
+    _anim_control->SetCurrentFrame(frame);
 }
 
 void Sprite::SetAnimationRate(int frame_rate) {
-    _anim_control.SetFrameRate(frame_rate);
+    _anim_control->SetFrameRate(frame_rate);
 }
 
 Sprite&  Sprite::operator = (Sprite const & right){

@@ -11,6 +11,7 @@ class Drawer{
 public:
     static void Line(const Vec2& point1, const Vec2& point2, const SDL_Color& color);
     static void Rect(const Vec2& pos, const Vec2& size, const SDL_Color& color, bool dynamic = false, float angle = 0);
+    static void StaticRect(const Vec2& pos, const Vec2& size, const SDL_Color& color, bool dynamic = false, float angle = 0);
     //static void Poly(const Vec2& center, float radius, const SDL_Color& color);
     static void Circle(const Vec2& center, float radius, const SDL_Color& color, bool dynamic = false, float angle = 0);
 
@@ -21,6 +22,7 @@ private:
         SHAPE_LINE,
         SHAPE_RECT,
         SHAPE_RECT_DYN,
+        SHAPE_STATIC_RECT,
         SHAPE_CIRCLE,
         SHAPE_CIRCLE_DYN
     };

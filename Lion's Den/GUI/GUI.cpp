@@ -39,6 +39,16 @@ void GUI::OnInit() {
 	_camera = new Camera(Vec2::ZERO, Vec2(Window::GetWidth(), Window::GetHeight()));
 }
 
+void GUI::ResetCamera() {
+	delete _camera;
+	_camera = new Camera(Vec2::ZERO, Vec2(Window::GetWidth(), Window::GetHeight()));
+
+
+}
+
+
+
+
 void GUI::OnUpdate() {
 	if (_top_mouse_btn) {
 		_top_mouse_btn->OnTopMouseEvent();

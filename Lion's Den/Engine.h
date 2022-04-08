@@ -36,40 +36,64 @@
 #include "IO/Mouse.h"
 #include "IO/Keyboard.h"
 
+#include "ImGUI/imgui.h"
+#include "ImGUI/imgui_sdl.h"
+#include "ImGui/imgui_impl_sdl.h"
+#include <Render/Sprite.h>
+
 class Engine {
 public:
-    bool quit;
+	Engine();
+	virtual ~Engine();
+	int GetGameSpeed();
+	Object* GetRootAtLayer(unsigned int layer);
+	
+	void AddLayer();
+	void SetGameSpeed(int ms);
+	void SetVideo(int w, int h, bool full_screen, std::string win_title);
+	void Start();
+	void Stop();
 
-    Engine();
-    virtual ~Engine();
-    void SetVideo(int w, int h, bool full_screen, std::string win_title);
-    void Start();
-    void Stop();
-
-    Object* GetRootAtLayer(unsigned int layer);
-    void AddLayer();
-
-    void SetGameSpeed(int ms);
-    int GetGameSpeed();
 
 private:
-    std::vector<Object*> _Layers;
-    std::vector<Object*> _DeleteCandidates;
-    double _ms_per_update;
+	std::vector<Object*> _Layers;
+	std::vector<Object*> _DeleteCandidates;
 
-    void DeleteObjects();
+	double _ms_per_update;
 
-    bool Core_Init();
-    void Core_Event(SDL_Event* event, const Uint8* keyboardState);
-    void Core_Update();
-    void Core_Render();
-    void Core_CleanUp();
+	void DeleteObjects();
 
-    virtual void OnInit();
-    virtual void OnEvent(SDL_Event* event, const Uint8* keyboardState);
-    virtual void OnUpdate();
-    virtual void OnRender();
-    virtual void OnCleanUp();
+	bool Core_Init();
+	void Core_Event(SDL_Event* event, const Uint8* keyboardState);
+	void Core_Update();
+	void Core_Render();
+	void Core_CleanUp();
+
+	virtual void OnInit();
+	virtual void OnEvent(SDL_Event* event, const Uint8* keyboardState);
+	virtual void OnUpdate();
+	virtual void OnRender();
+	virtual void OnCleanUp();
+
+public://own functions
+	bool check_fullscreen = false;
+	bool quit;
+	int LoadedSaveNr;
+	Sprite Background;
+	static bool Pause;
+	std::vector<std::string> saves;
+	bool deleted=true;
+	bool reschange = false;
+
+
+private:
+	virtual void DrawOptionsMenu();
+	virtual void DrawLoadMenu();
+	virtual void DrawHelpMenu();
+	virtual void RepositionGuiAtResChange();
+	virtual void OnRenderDebugGui();
+	virtual void SaveGame();
+	virtual void LoadGame();
 };
 
 #endif /* ENGINE_H_ */

@@ -27,7 +27,7 @@ bool Window::Init() {
     _window = SDL_CreateWindow(_title.c_str(),
                                SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                                _size.x, _size.y,
-                               SDL_WINDOW_FULLSCREEN_DESKTOP * _full_screen);
+                               SDL_WINDOW_FULLSCREEN_DESKTOP * _full_screen|SDL_WINDOW_RESIZABLE|SDL_WINDOW_ALLOW_HIGHDPI  );
     if (_window == nullptr) {
         std::cerr << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
         return false;
@@ -52,7 +52,7 @@ bool Window::Init() {
     SDL_SetRenderDrawColor(Window::GetRenderer(), _color_background.r,
                                _color_background.g, _color_background.b, 0);
 
-    SDL_RenderSetLogicalSize(Window::GetRenderer(), _size.x, _size.y);
+    //SDL_RenderSetLogicalSize(Window::GetRenderer(), _size.x, _size.y);
 
     return true;
 }
@@ -81,7 +81,7 @@ bool Window::SetMode(int w, int h, bool full_screen, const std::string &title) {
 
         SDL_SetWindowTitle(_window, _title.c_str());
         SDL_SetWindowSize(_window, _size.x, _size.y);
-
+        SDL_SetWindowPosition(_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
         if (SDL_SetWindowFullscreen(_window,  SDL_WINDOW_FULLSCREEN_DESKTOP * _full_screen) < 0) {
             ShowError(error);
         }

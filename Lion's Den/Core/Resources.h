@@ -33,6 +33,7 @@ public:
     static TTF_Font *GetFont(std::string file_path, int ptsize);
     static void* GetAudio(std::string file_path, bool isMusic = false);
 
+
     static void UnloadTexture(std::string file_path);
     static void UnloadFont(std::string file_path);
     static void UnloadSound(std::string file_path);
@@ -58,6 +59,7 @@ private:
     static std::string _default_font;
     static int _default_font_ptsize;
     static std::string _default_style;
+    static b2World* world;
 
     static void FreeSound(AudiosBufWrapper& wrapper);
 

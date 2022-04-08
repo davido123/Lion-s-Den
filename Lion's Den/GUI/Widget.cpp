@@ -20,6 +20,19 @@ Widget::Widget(const Vec2& pos, const Vec2& size):
 
     Object::SetCamera(GUI::GetCamera());
 }
+Widget::Widget(const float& x, const float& y, const float& w, const float& h) :
+    _visible(true), _bg_visible(true)
+{
+    Object::SetSizeCentered(w,h);
+    Object::SetPosCentered(x,y);
+  
+
+    _back.SetFrameSize(GetSize());
+
+    IgnoreWheel(true);
+
+    Object::SetCamera(GUI::GetCamera());
+}
 
 Widget::~Widget() {
     if (_back.GetTexture() != nullptr) {
@@ -31,6 +44,18 @@ Widget::~Widget() {
 
 void Widget::Show(bool show){
     _visible = show;
+    
+    if (_ChildrenList.empty()) {
+        return;
+    }
+
+    size_t len = _ChildrenList.size();
+
+    for (size_t i = 0; i < len; ++i) {
+        Widget* pc = static_cast<Widget*>(_ChildrenList[i]);
+        //pc->_visible = show;
+        pc->Show(show);
+    }
 }
 
 void Widget::ShowBack(bool show_bg){
@@ -80,13 +105,17 @@ void Widget::OnTopMouseEvent(){
     }else if(_state == WIDGET_PRESSED){
             EmitAction("mouseup");
             _state = WIDGET_NORMAL;
+
     }
     else if(_state != WIDGET_HOVERED){
         EmitAction("mousehover");
         _state = WIDGET_HOVERED;
+
     }
 
     _was_intersected = true;
+
+
 }
 
 void Widget::OnTopMouseWheelEvent(){

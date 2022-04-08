@@ -4,6 +4,7 @@ Button::Button(const Vec2& pos, const Vec2& size, const std::string& font, int f
 Box(pos, size, font, font_pt_size) {
     ShowBack(true);
 
+    Object::SetType(OBJ_BUTTON);
     auto set_offset = [this](int shift){
         SDL_Rect offset = GetOffset();
 
@@ -16,11 +17,14 @@ Box(pos, size, font, font_pt_size) {
         CalcTextPos();
     };
 	SetText(text);
-	SetStyle("borders.png", 32);
+	SetStyle("GUI/button_style.png", 32);
 
     AddAction("mousedown", [this, set_offset](){
         SetBackGround(_back_style, _pos_pressed, _tile_resolution);
         set_offset(1);
+
+     
+
     }, this);
 
     AddAction("mouseup", [this, set_offset](){
@@ -39,6 +43,12 @@ Box(pos, size, font, font_pt_size) {
            set_offset(-1);
         }
     }, this);
+    if (GetLabel() == "")
+    {
+        SetLabel(text);
+    }
+    
+
 }
 
 Button::~Button() {
@@ -69,6 +79,10 @@ void Button::SetStyle(const std::string& style,
 	SetBackGround(_back_style, _pos_normal, _tile_resolution);
 }
 
+void Button::ReloadStyle()
+{
+    SetBackGround(_back_style, _pos_normal, _tile_resolution);
+}
 
 
 /*

@@ -1,231 +1,243 @@
 #include "Map.h"
-#include "Core/Vec2.h"
+#include "Tileson/tileson.hpp"
+//#include "ImGui/imgui_struct.h"
+#include "Engine.h"
+#include "Render/Drawer.h"
+#include "TileCollider.h"
+
+#include "Core/Collider.h"
+
 
 float Map::GRID_SCALE;
 int Map::SCALED_TILE_SIZE;
 
+
 Map::Map() {
-	_max_grid_x = 0;
-	_max_grid_y = 0;
-	_tile_grid_size = 0;
-	_Tile_map = nullptr;
-	
-	
 	Vec2 frame(32, 32);
+	_draw_sprite.SetFrameSize(frame);
 
-	//setup ground tile
-	_sprite_ground.SetTexture(Resources::GetTexture("Dungeon_Tileset.png"));
-	_sprite_ground.SetFrameSize(frame);
-	_sprite_ground.SetFrame(89);
-
-
-
-	_nosprite.SetFrameSize(frame);
-
-	Zoom(2);
+	Zoom(1);
 }
-
-Map::Map(const Map& orig) {
-
-}
-
 Map::~Map() {
 
 }
-
 void Map::Zoom(float scale) {
-	SCALED_TILE_SIZE = 16 * scale;
+	SCALED_TILE_SIZE = 32 * scale;
 	GRID_SCALE = 1.0f / SCALED_TILE_SIZE;
 }
+bool Map::LoadJson(std::string path) {
 
-bool Map::Load(std::string path) {
-	std::fstream file_map(path);
+	tson::Tileson parser;
+	_map = parser.parse(fs::path(path));
+	if (_map->getStatus() == tson::ParseStatus::OK)
+	{
+		_draw_sprite.SetTexture(Resources::GetTexture("Tilesets/Dungeon_Tileset.png"));
+		_draw_sprite.SetFrameSize(Vec2(32, 32));
 
-	size_t width;
-	size_t height;
-	file_map >> seed;
-	file_map >> width;
-	file_map >> height;
+		SetMapSize(Vec2(_map->getSize().x, _map->getSize().y));
+		SetTileSize(Vec2(_map->getTileSize().x, _map->getTileSize().y));
+		SetMapSizePixels(Vec2(GetMapSize() * GetTileSize()));
 
-	if (width != 0 && height != 0) {
-		_max_grid_x = width;
-		_max_grid_y = height;
+		//_map->getTileset();
 
-		std::cout << "Map size: w " << width << ", h " << height << std::endl;
+		std::cout << "parse ok" << std::endl;
 	}
-	else {
-		std::cerr << "Invalid sizes: " << width << ", " << height << std::endl;
-		return false;
-	}
-
-	//Init map array
-	_Tile_map = new tile*[_max_grid_y];
-	for (size_t i = 0; i < _max_grid_y; ++i) {
-		_Tile_map[i] = new tile[_max_grid_x];
+	else //Error occurred
+	{
+		std::cout << _map->getStatusMessage();
 	}
 
-	std::string line;
-	size_t words_count;
-	size_t lines_count = 0;
 
-	while (getline(file_map, line) && lines_count < _max_grid_y) {
-
-		//skip null line
-		if (line.empty()) {
-			continue;
-		}
-
-		words_count = 0;
-
-		std::stringstream line_stream(line);
-		size_t ntile;
-
-		while (line_stream >> ntile && words_count < _max_grid_x) {
-			if (ntile > TILE_NONE) {
-				std::cerr << "Wrong tile: " << ntile << std::endl;
-				return false;
-			}
-
-			_Tile_map[lines_count][words_count] = static_cast<tile> (ntile);
-			++words_count;
-		}
-
-		if (words_count != _max_grid_x) {
-			std::cerr << "Wrong map size: " << words_count << ", expected " << _max_grid_x << std::endl;
-			return false;
-		}
-
-		++lines_count;
-	}
-
-	file_map.close();
-
-	return true;
+	return 0;
 }
 
-bool Map::SaveMap(std::string path) {
-	std::ofstream file_map(path, std::ios::trunc);
-
-	file_map << _max_grid_x << " " << _max_grid_y << std::endl;
-
-	for (size_t i = 0; i < _max_grid_y; ++i) {
-		for (size_t j = 0; j < _max_grid_x; ++j) {
-			file_map << _Tile_map[i][j] << " ";
-		}
-		file_map << std::endl;
-	}
-
-	file_map.close();
-
-	return true;
+bool Map::SaveJson(std::string path)
+{
+	return false;
 }
 
-void Map::DrawTile(const Vec2& pos_local, tile mtile) {
-
-	tile left = GetTile(pos_local + Vec2::LEFT);
-	tile right = GetTile(pos_local + Vec2::RIGHT);
-	tile up = GetTile(pos_local + Vec2::UP);
-	tile down = GetTile(pos_local + Vec2::DOWN);
-
-	Sprite* draw_sprite;
-	switch (mtile) {
-
-		break;
-	case TILE_GROUND:
-		draw_sprite = &_sprite_ground;
-		_sprite_ground.SetFrame(89);
-
-		break;
-
-	case TILE_OBJECT:
-	default:
-		draw_sprite = &_nosprite;
-	}
-
-	draw_sprite->Draw(pos_local * SCALED_TILE_SIZE, Vec2(SCALED_TILE_SIZE, SCALED_TILE_SIZE), Window::GetCamera());
-}
 
 void Map::Draw() {
-	Vec2 local_pos;
-	for (size_t i = 0; i < _max_grid_y; ++i) {
-		for (size_t j = 0; j < _max_grid_x; ++j) {
-			local_pos.x = j;
-			local_pos.y = i;
-			DrawTile(local_pos, _Tile_map[i][j]);
+
+	for (auto& layers : _map->getLayers())
+	{
+		for (auto& [pos, tileObject] : layers.getTileObjects()) //Loops through absolutely all existing tileObjects
+		{
+			tson::Tileset* tileset = tileObject.getTile()->getTileset();
+			tson::Rect drawingRect = tileObject.getDrawingRect();
+
+			tson::Vector2i position = tileObject.getPositionInTileUnits();
+			tson::Tile* tile = tileObject.getTile();
+			Vec2 posV2 = Vec2(position.x, position.y);
+
+			_draw_sprite.SetFrame(tile->getId() - 1);
+			_draw_sprite.Draw(posV2 * SCALED_TILE_SIZE, Vec2(SCALED_TILE_SIZE, SCALED_TILE_SIZE), Window::GetCamera());
 		}
 	}
 }
 
-void Map::DrawDebugTileRect(const Vec2& pos, tile mtile) {
-	if (pos.x < 0 || pos.y < 0 || pos.x >= _max_grid_x || pos.y >= _max_grid_y) {
-		return;
-	}
+void Map::DrawLayer(std::string layerName)
+{
+	tson::Layer* layer = _map->getLayer(layerName);
 
-	SDL_Rect tile_border_pos = { (int)pos.x*SCALED_TILE_SIZE - Window::GetCamera()->X() - 1,
-							(int)pos.y*SCALED_TILE_SIZE - Window::GetCamera()->Y() - 1,
-							SCALED_TILE_SIZE + 2, SCALED_TILE_SIZE + 2 };
-	Surface::DrawRect(&tile_border_pos, COLOR_YELLOW);
+	for (auto& [pos, tileObject] : layer->getTileObjects()) //Loops through absolutely all existing tileObjects
+	{
+		tson::Tileset* tileset = tileObject.getTile()->getTileset();
+		tson::Rect drawingRect = tileObject.getDrawingRect();
 
-	DrawTile(Vec2((int)pos.x, (int)pos.y), mtile);
-}
+		tson::Vector2i position = tileObject.getPositionInTileUnits();
+		tson::Tile* tile = tileObject.getTile();
+		Vec2 posV2 = Vec2(position.x, position.y);
 
-void Map::Free() {
-	for (size_t i = 0; i < _max_grid_x; ++i) {
-
-		delete[](_Tile_map[i]);
-	}
-	delete[](_Tile_map);
-
-	_max_grid_x = 0;
-	_max_grid_y = 0;
-	_tile_grid_size = 0;
-	_Tile_map = nullptr;
-}
-
-bool Map::CanMove(const Vec2& pos) {
-	if (pos.x < 0 || pos.y < 0 || pos.x >= _max_grid_x || pos.y >= _max_grid_y) {
-		return false;
-	}
-
-	tile mtile = _Tile_map[static_cast<int> (pos.y)][static_cast<int> (pos.x)];
-	if (mtile == TILE_WATER || mtile == TILE_MOUNTAIN || mtile == TILE_BUILDING) {
-		return false;
-	}
-
-	return true;
-}
-
-bool Map::CanMove(tile mtile) {
-	switch (mtile) {
-	case TILE_WATER:
-	case TILE_MOUNTAIN:
-	case TILE_BUILDING:
-		return false;
-	default:
-		return true;
+		_draw_sprite.SetFrame(tile->getId() - 1);
+		_draw_sprite.Draw(posV2 * SCALED_TILE_SIZE, Vec2(SCALED_TILE_SIZE, SCALED_TILE_SIZE), Window::GetCamera());
 	}
 }
 
-bool Map::SetTile(const Vec2& pos, tile mtile) {
-	if (pos.x < 0 || pos.y < 0 || pos.x >= _max_grid_x || pos.y >= _max_grid_y) {
-		return false;
+void Map::DrawLayerOrderNR(std::string layerName, int nr)
+{
+	tson::Layer* layer = _map->getLayer(layerName);
+
+	for (auto& [pos, tileObject] : layer->getTileObjects()) //Loops through absolutely all existing tileObjects
+	{
+		tson::Tileset* tileset = tileObject.getTile()->getTileset();
+		tson::Rect drawingRect = tileObject.getDrawingRect();
+
+		tson::Vector2i position = tileObject.getPositionInTileUnits();
+		tson::Tile* tile = tileObject.getTile();
+		Vec2 posV2 = Vec2(position.x, position.y);
+		int nrw = tile->get<int>("DrawOrder");
+
+		if (nr == nrw)
+		{
+			_draw_sprite.SetFrame(tile->getId() - 1);
+			_draw_sprite.Draw(posV2 * SCALED_TILE_SIZE, Vec2(SCALED_TILE_SIZE, SCALED_TILE_SIZE), Window::GetCamera());
+		}
+
+	}
+}
+
+
+
+Vec2 Map::GetMapSize()
+{
+	return MapSize;
+}
+
+Vec2 Map::GetTileSize()
+{
+	return TileSize;
+}
+
+Vec2 Map::GetMapSizePixels()
+{
+	return MapSizePixels;
+}
+
+void Map::GetCollisionBoxes()
+{
+	tson::Tileset* tileset = _map->getTileset("Dungeon_Tileset");
+	for (auto& tile : tileset->getTiles())
+	{
+		auto og = tile.getObjectgroup();
+		int id = tile.getId();
+		for (auto& tileobject : og.getObjects())
+		{
+			Vec2 pos = Vec2(tileobject.getPosition().x, tileobject.getPosition().y);
+			Vec2 size = Vec2(tileobject.getSize().x, tileobject.getSize().y);
+
+
+			TileCollider col = TileCollider(pos, size, id);
+
+			CollisionTiles.push_back(col);
+
+
+		}
+	}
+}
+void Map::SpawnMonsters()
+{
+
+	tson::Layer* layer = _map->getLayer("Enemies");
+
+
+	Monster::MonsterList.clear();
+
+
+	for (auto& [pos, tileObject] : layer->getTileObjects()) //Loops through absolutely all existing tileObjects
+	{
+		
+		tson::Vector2i position = tileObject.getPositionInTileUnits();
+		tson::Tile* tile = tileObject.getTile();
+		Vec2 posV2 = Vec2(position.x*SCALED_TILE_SIZE, position.y*SCALED_TILE_SIZE);
+		//Monster* mon= new Monster(Monster::MonsterTypes[tile->getObjectgroup().getId()]);
+		Monster* mon = new Monster();
+		mon->SetPos(posV2);
+		mon->UpdateId();
+		mon->SetParams(Monster::MonsterTypes[tile->getObjectgroup().getId()]);
+		Collider::RegisterObject(mon, mon->GetColliderPos(),mon-> GetColliderBox(), false);
+		Collider::RegisterTarget(mon, mon->GetColliderPos(),mon-> GetColliderBox());
+
+		Monster::MonsterList.push_back(mon);
+
 	}
 
-	_Tile_map[static_cast<int> (pos.y)][static_cast<int> (pos.x)] = mtile;
-
-	return true;
 }
 
 
-tile Map::GetTileNear(const Vec2& pos, const Vec2& side_offset) {
-	Vec2 next(pos.x + side_offset.x, pos.y + side_offset.y);
-	return GetTile(next);
+
+void Map::RegisterCollisionBoxes() {
+
+	for (auto& layers : _map->getLayers())
+	{
+
+		for (auto& [pos, tileObject] : layers.getTileObjects()) //Loops through absolutely all existing tileObjects
+		{
+			tson::Tile* tile = tileObject.getTile();
+
+			Vec2 pos = Vec2(tileObject.getPosition().x, tileObject.getPosition().y);
+			Vec2 size = Vec2(tile->getTileSize().x, tile->getTileSize().y);
+
+
+
+			for (auto& col : CollisionTiles)
+			{
+				if (col._id == tile->getId())
+				{
+					Object* b = new Object();
+					b->SetPos(pos + col._pos);
+					b->SetSize(col._size);
+					Collider::RegisterObject(b, Collider::COLLIDER_RECT);
+
+				}
+
+
+			}
+
+
+
+
+		}
+	}
 }
 
-size_t Map::GetW() {
-	return _max_grid_x;
+
+
+
+
+
+
+void Map::SetMapSize(Vec2 size)
+{
+	MapSize = size;
 }
 
-size_t Map::GetH() {
-	return _max_grid_y;
+void Map::SetTileSize(Vec2 size)
+{
+	TileSize = size;
+}
+
+void Map::SetMapSizePixels(Vec2 size)
+{
+	MapSizePixels = size;
 }

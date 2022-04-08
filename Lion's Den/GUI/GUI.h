@@ -33,6 +33,7 @@ public:
     static Camera* GetCamera();
 
     static void OnInit();
+    static void ResetCamera();
     static void OnUpdate();
     static void OnRender();
 

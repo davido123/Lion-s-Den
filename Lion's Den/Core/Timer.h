@@ -1,7 +1,6 @@
 /*!
   boldtemple Gaming ©, http://gaming.boldtemple.net
   OpenSource Project - Check Development, License & Readme Sections.
-
   BGE - boldtemple Cross Platform Game Engine
   /Core/Timer.h
 !*/
@@ -12,72 +11,67 @@
 #include <iostream>
 #include <SDL.h>
 
+static const int SECOND = 1000;
+static const int MINUTE = SECOND * 60;
+static const int HOUR = MINUTE * 60;
+
 class Timer {
 public:
-    const static Uint32 SECOND;
-    const static Uint32 MINUTE;
-    const static Uint32 HOUR;
-
-    static Uint32 Now();
-
     Timer();
-
-    void Reset();
-    void SetRange(Uint32 range);
-
-    Uint32 GetRange() const;
-    Uint32 GetStartTime() const;
-
-    bool InRange() const;
-    bool OutRange() const;
+    void Start();
+    void Stop();
+    void Pause(bool p);
+    bool isPaused();
+    Uint32 GetTime();
 
 private:
-    Uint32 _range;
-    Uint32 _begin_time;
-    Uint32 _finish_time;
-
-    void UpdateFinishTime();
+    Uint32 begin_time;
+    Uint32 paused_time;
+    bool pause;
 };
 
 inline
-Timer::Timer(): _range(0), _begin_time(0), _finish_time(0){
+Timer::Timer() {
+    begin_time = 0;
+    paused_time = 0;
+    pause = false;
 }
 
 inline
-void Timer::Reset() {
-    _begin_time = SDL_GetTicks();
-    UpdateFinishTime();
+void Timer::Start() {
+    //Doesn't start if not stopped
+    if (begin_time == 0) {
+        pause = false;
+        begin_time = SDL_GetTicks();
+    }
 }
 
 inline
-void Timer::SetRange(Uint32 range){
-    _range = range;
-    UpdateFinishTime();
+void Timer::Stop() {
+    begin_time = 0;
+    paused_time = 0;
 }
 
 inline
-Uint32 Timer::GetRange() const{
-    return _range;
+void Timer::Pause(bool p) {
+    pause = p;
+    paused_time = SDL_GetTicks() - begin_time;
 }
 
 inline
-Uint32 Timer::GetStartTime() const{
-    return _begin_time;
+bool Timer::isPaused() {
+    return pause;
 }
 
 inline
-bool Timer::InRange() const{
-    return SDL_GetTicks() < _finish_time;
-}
-
-inline
-bool Timer::OutRange() const{
-    return SDL_GetTicks() >= _finish_time;
-}
-
-inline
-void Timer::UpdateFinishTime(){
-    _finish_time = _begin_time + _range;
+Uint32 Timer::GetTime() {
+    if (pause) {
+        return paused_time;
+    } else if (begin_time) {
+        return SDL_GetTicks() - begin_time;
+    } else {
+        return 0;
+    }
 }
 
 #endif /* TIMER_H_ */

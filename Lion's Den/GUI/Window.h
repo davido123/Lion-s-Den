@@ -26,9 +26,6 @@ public:
 	static void SetHeight(const int& h);
     static void SetSize(const Vec2& size);
 
-	static void SetInterpolation(const float& value);
-	static float GetInterpolation();
-
 	static void SetBackgroundColor(const SDL_Color& color);
 	static SDL_Color GetBackgroundColor();
 

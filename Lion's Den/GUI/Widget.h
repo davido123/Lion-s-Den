@@ -30,6 +30,7 @@ enum widget_state{
 class Widget: public Object {
 public:
     Widget(const Vec2& pos, const Vec2& size);
+    Widget(const float& x, const float& y, const float& w, const float& h);
     virtual ~Widget();
     void Show(bool show);
     void ShowBack(bool show_bg);

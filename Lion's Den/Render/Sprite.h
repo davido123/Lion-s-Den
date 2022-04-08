@@ -37,7 +37,8 @@ public:
     SDL_RendererFlip GetFlip() const;
 
     /*==Animation control==*/
-    void SetAnimation(const Animation& anim);
+    void SetAnimation(Animation* anim);
+    Animation* GetAnimation();
     void SetFrameSize(const Vec2& frame_size);
     void SetAnimation(int begin_frame, int end_frame);
     void SetFrame(int frame);
@@ -53,7 +54,7 @@ private:
     int _frames_per_height;
     SDL_Rect _src_rect;//real size of texture
     SDL_Rect _anim_rect;
-    Animation _anim_control;
+    Animation* _anim_control;
 };
 
 #endif /* SRC_RENDER_SPRITE_H_ */

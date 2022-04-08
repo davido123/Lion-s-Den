@@ -22,6 +22,17 @@ void Drawer::Rect(const Vec2& pos, const Vec2& size, const SDL_Color &color, boo
         RenQueue.push_back({SHAPE_RECT, color, 0, 0, {0, 0},{pt1, pt2}});
     }
 }
+void Drawer::StaticRect(const Vec2& pos, const Vec2& size, const SDL_Color& color, bool dynamic, float angle) {
+    SDL_Point pt1 = { static_cast<int>(std::round(pos.x)), static_cast<int>(std::round(pos.y)) };
+    SDL_Point pt2 = { static_cast<int>(std::round(size.x)), static_cast<int>(std::round(size.y)) };
+
+    if (dynamic) {
+        RenQueue.push_back({ SHAPE_RECT_DYN, color, angle * Vec2::GRADUS, 0, {0, 0}, {pt1, pt2} });
+    }
+    else {
+        RenQueue.push_back({ SHAPE_STATIC_RECT, color, 0, 0, {0, 0},{pt1, pt2} });
+    }
+}
 
 void Drawer::Circle(const Vec2& center, float radius, const SDL_Color &color, bool dynamic, float angle){
     if(dynamic){
@@ -95,6 +106,7 @@ void GetCircle(std::vector<SDL_Point>& pts, int x0, int y0, int radius){
 }
 
 void Drawer::RenderAll(SDL_Renderer* renderer, Camera* camera){
+    
     Vec2 camOffset = camera->GetPos();
 
     int size = RenQueue.size();
@@ -104,6 +116,7 @@ void Drawer::RenderAll(SDL_Renderer* renderer, Camera* camera){
 
     for(int i = 0; i < size; ++i){
         tmp = &RenQueue[i];
+
         SDL_SetRenderDrawColor(renderer, tmp->color.r, tmp->color.g, tmp->color.b, tmp->color.a);
 
         switch(tmp->type){
@@ -115,8 +128,19 @@ void Drawer::RenderAll(SDL_Renderer* renderer, Camera* camera){
             break;
 
         case SHAPE_RECT:
+            
             rect_tmp.x = tmp->points[0].x - camOffset.x;
             rect_tmp.y = tmp->points[0].y - camOffset.y;
+            rect_tmp.w = tmp->points[1].x;
+            rect_tmp.h = tmp->points[1].y;
+
+            SDL_RenderDrawRect(renderer, &rect_tmp);
+            break;
+
+        case SHAPE_STATIC_RECT:
+
+            rect_tmp.x = tmp->points[0].x;
+            rect_tmp.y = tmp->points[0].y;
             rect_tmp.w = tmp->points[1].x;
             rect_tmp.h = tmp->points[1].y;
 

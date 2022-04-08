@@ -11,6 +11,7 @@ public:
     Camera() {}
     Camera(const Vec2& pos, const Vec2& viewport);
     void SetPos(const Vec2& pos);
+    void CenterOnPlayer(const Vec2& playerPos, const Vec2& playerSize,const Vec2& mapSize);
     void SetViewport(const Vec2& viewport, const Vec2 &offset);
     bool InView(SDL_Rect* rect) const;
     bool InView(int x, int y, int h, int w) const;
@@ -22,6 +23,12 @@ public:
     int Y() const;
     int W() const;
     int H() const;
+
+    Vec2 GetOffset();
+    void SetOffset(Vec2 offset);
+    void SetOffsetX(float x);
+    void SetOffsetY(float y);
+    
 
 private:
     Vec2 _pos;

@@ -84,7 +84,7 @@ void ComboBox::ShowItems(){
         Button* btn_item = new Button(Vec2(0, idx * combo_size.y),
                                       Vec2(combo_size.x, combo_size.y),
                                       Resources::GetDefaultFont(),
-                                      Resources::GetDefaultFontPtsize());
+                                      Resources::GetDefaultFontPtsize(),"");
         int my_idx = idx;
         btn_item->ShowBack(true);
         btn_item->SetText(*it);

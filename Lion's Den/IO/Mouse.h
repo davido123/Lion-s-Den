@@ -53,10 +53,12 @@ public:
     static bool AnyPressed();
     static bool AnyWheeled();
 
+
 private:
     Mouse();
     friend Engine;
     static int _wheel_x, _wheel_y;
+
     static void SetWheel(const int& x, const int& y);
     static void ResetWheel();
 };
@@ -73,6 +75,7 @@ void Mouse::SetCapture(bool capture) {
     if (SDL_SetRelativeMouseMode(capture ? SDL_TRUE : SDL_FALSE) < 0) {
         std::cerr << SDL_GetError() << std::endl;
     }
+ 
 }
 
 inline
@@ -104,7 +107,7 @@ void Mouse::GetWheel(int* x, int* y){
 
 inline
 bool Mouse::Intersect(const Vec2& pos, const Vec2 &size, Camera* cam){
-    Vec2 mouse_pos = GetPos() + cam->GetPos();
+    Vec2 mouse_pos = GetPos() ;
     if(mouse_pos.x < pos.x || mouse_pos.x > pos.x + size.x) return false;
     if(mouse_pos.y < pos.y || mouse_pos.y > pos.y + size.y) return false;
     return true;
@@ -160,5 +163,8 @@ inline
 bool Mouse::AnyWheeled() {
     return (_wheel_x != 0 || _wheel_y != 0);
 }
+
+
+
 #endif	/* MOUSE_H */
 

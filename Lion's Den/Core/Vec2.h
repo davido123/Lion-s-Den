@@ -10,6 +10,8 @@
 #define VEC2_H_
 
 #include <cmath>
+#include <ostream>
+#include <string>
 
 class Vec2 {
 public:
@@ -22,6 +24,8 @@ public:
     const static Vec2 DOWN;
     const static Vec2 LEFT;
     const static Vec2 RIGHT;
+
+    std::string toString() const;
 
     Vec2();
     Vec2(const float& x, const float& y);
@@ -39,6 +43,7 @@ public:
 
     void Rotate(const float &angle);
     void Normalize();
+    bool Intersect(const Vec2& a, const Vec2& b);
 
     Vec2& operator=(const Vec2& right);
     bool operator==(const Vec2& right) const;
@@ -47,13 +52,18 @@ public:
     friend const Vec2 operator-(const Vec2& left, const Vec2& right);
     friend const Vec2 operator*(const Vec2& left, const Vec2& right);
     friend const Vec2 operator*(const Vec2& left, const float& scale);
+	friend const Vec2 operator/(const Vec2& left, const float& scale);
 
     Vec2& operator+=(const Vec2& right);
     Vec2& operator-=(const Vec2& right);
     Vec2& operator*=(const Vec2& right);
     Vec2& operator*=(const float& scale);
 
+	
+
+
 private:
+
     mutable bool _changed_length = true;
     mutable bool _changed_angle = true;
 
@@ -62,6 +72,12 @@ private:
 
     void SetCacheFlagTrue();
 };
+
+inline
+std::string Vec2::toString() const {
+    return "X: " + std::to_string(x) + " Y: " + std::to_string(y);
+  }
+
 
 inline
 Vec2::Vec2(): x(0.0f), y(0.0f){
@@ -138,6 +154,15 @@ void Vec2::Normalize(){
 }
 
 inline
+bool Vec2::Intersect(const Vec2 &pos, const Vec2 &size){
+    if(x < pos.x || x > pos.x + size.x) return false;
+    if(y < pos.y || y > pos.y + size.y) return false;
+    return true;
+
+
+}
+
+inline
 Vec2& Vec2::operator=(const Vec2& right) {
     //проверка на самоприсваивание
     if (this != &right) {
@@ -178,6 +203,10 @@ inline
 const Vec2 operator*(const Vec2& left, const float& scale) {
     return Vec2(left.x * scale, left.y * scale);
 }
+inline
+const Vec2 operator/(const Vec2& left, const float& scale) {
+	return Vec2(left.x / scale, left.y / scale);
+}
 
 inline
 Vec2& Vec2::operator+=(const Vec2& right) {
@@ -210,4 +239,27 @@ Vec2& Vec2::operator*=(const float& scale) {
     this->SetCacheFlagTrue();
     return *this;
 }
+template <typename T>
+inline T Max(T a, T b)
+{
+	return a > b ? a : b;
+}
+inline Vec2 Max(const Vec2& a, const Vec2& b)
+{
+	return Vec2(Max(a.x, b.x), Max(a.y, b.y));
+}
+
+
+template <typename T>
+inline T Min(T a, T b)
+{
+	return a < b ? a : b;
+}
+
+inline Vec2 Min(const Vec2& a, const Vec2& b)
+{
+	return Vec2(Min(a.x, b.x), Min(a.y, b.y));
+}
+
+
 #endif /* VEC2_H_ */

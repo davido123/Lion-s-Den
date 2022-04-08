@@ -20,22 +20,30 @@
 class Box: public Widget {
 public:
     Box(const Vec2& pos, const Vec2& size, const std::string& font, int font_pt_size);
+    Box(const float& x, const float& y, const float& w, const float& h, const std::string& font, int font_pt_size);
     virtual ~Box();
 
     virtual void SetSize(const Vec2& size);
+    void SetSizeCentered(const float& x, const float& y);
     virtual void OnRender();
 
     virtual void Move(const Vec2& delta_pos);
     virtual void SetPos(const Vec2& pos);
 
+    void SetPosCentered(const int& x, const int& y);
+    void SetPosCentered(const Vec2& pos);
+
     void SetIcon(const std::string& icon);
+    std::string GetText();
     virtual void SetText(const std::string& str);
 
     void SetOffset(const SDL_Rect& offset);
     SDL_Rect GetOffset();
 
     Vec2 GetTextSize() const;
-
+    void CalcTextPos();
+    void LoadSettings();
+	void RecalcRelative();
 
 
 protected:
@@ -53,7 +61,7 @@ protected:
     bool _has_icon;
     Sprite _icon;
 
-    void CalcTextPos();
+    
 };
 
 #endif /* SRC_GUI_BOX_H_ */

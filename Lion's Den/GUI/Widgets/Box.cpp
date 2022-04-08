@@ -7,6 +7,9 @@
 !*/
 
 #include "GUI/Widgets/Box.h"
+#include "Render/Drawer.h"
+#include <Settings.h>
+#include "rapidjson/pointer.h"
 
 Box::Box(const Vec2& pos, const Vec2& size, const std::string& font, int font_pt_size) :
         Widget(pos, size)
@@ -20,9 +23,30 @@ Box::Box(const Vec2& pos, const Vec2& size, const std::string& font, int font_pt
     _text_texture = nullptr;
     _has_icon = false;
 
-    SetSize(size);
     SetPos(pos);
-	SetBackGround("borders.png", Vec2::ZERO, 32);
+    SetSize(size);
+
+
+    //LoadSettings();
+	SetBackGround("GUI/borders.png", Vec2::ZERO, 32);
+}
+Box::Box(const float& x, const float& y, const float& w, const float& h, const std::string& font, int font_pt_size) :
+    Widget(x,y,w,h)
+{
+    ShowBack(true);
+
+    _pt_size = font_pt_size;
+    _text.Init(0, 0, "", font, font_pt_size);
+
+    _text_size = Vec2::ZERO;
+    _text_texture = nullptr;
+    _has_icon = false;
+    _pos_relative=Vec2(x,y);
+    _size_relative=Vec2(w,h);
+
+    SetSizeCentered(w,h);
+    SetPosCentered(x,y);
+    SetBackGround("GUI/borders.png", Vec2::ZERO, 32);
 }
 
 Box::~Box() {
@@ -44,6 +68,11 @@ void Box::OnRender() {
             Surface::Draw(_text_texture, &_text_draw_rect);
         }
     }
+    //for debugging
+   // Drawer::Rect(Object::GetGlobalPos(), Object::GetSize(), COLOR_RED,false);
+
+    
+
 }
 
 void Box::SetSize(const Vec2& size) {
@@ -56,6 +85,18 @@ void Box::SetSize(const Vec2& size) {
     SetText(_str_text);
     CalcTextPos();
 }
+void Box::SetSizeCentered(const float& x, const float& y) {
+    if (_text_texture) {
+        SDL_DestroyTexture(_text_texture);
+    }
+    
+    Object::SetSizeCentered(x, y);
+    //SetBackGround("borders.png", Vec2::ZERO, 32);
+
+    SetText(_str_text);
+    CalcTextPos();
+    
+}
 
 void Box::Move(const Vec2 &delta_pos){
     Widget::Move(delta_pos);
@@ -66,6 +107,12 @@ void Box::SetPos(const Vec2& pos){
     Widget::SetPos(pos);
     CalcTextPos();
 }
+void Box::SetPosCentered(const int& x, const int& y)
+{
+    Widget::SetPosCentered(x,y);
+    CalcTextPos();
+}
+
 
 void Box::SetIcon(const std::string& icon){
     SDL_Texture* texture = Resources::GetTexture(icon);
@@ -77,6 +124,11 @@ void Box::SetIcon(const std::string& icon){
     _icon.SetFrameSize(Vec2(w, h));
 
     _has_icon = true;
+}
+
+std::string Box::GetText()
+{
+    return _str_text;
 }
 
 void Box::SetText(const std::string &str) {
@@ -170,4 +222,31 @@ void Box::CalcTextPos(){
         static_cast<int>(GetSize().x -  _text_offset.x - _text_offset.w),
         static_cast<int>(GetSize().y -  _text_offset.y - _text_offset.h)
     };
+}
+
+void Box::LoadSettings()
+{
+    Settings* Settings = Settings::GetInstance("1");
+    
+    std::string test = GetLabel();
+    const char* key_ctr = GetLabel().c_str();
+    assert(Settings->d[key_ctr].IsObject());
+
+    if (Settings->d[key_ctr].IsObject())
+    {
+        SetSize(Vec2(Settings->d[key_ctr]["x"].GetInt(), Settings->d[key_ctr]["y"].GetInt()));
+        SetPos(Vec2(Settings->d[key_ctr]["w"].GetInt(), Settings->d[key_ctr]["h"].GetInt()));
+    }
+    //SetSize(size);
+    //SetPos(pos);
+    
+
+
+}
+
+void Box::RecalcRelative()
+{
+    SetSizeCentered(_size_relative.x, _size_relative.y);
+    SetPosCentered(_pos_relative.x, _pos_relative.y);
+    SetBackGround("GUI/borders.png", Vec2::ZERO, 32);
 }

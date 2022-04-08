@@ -10,6 +10,11 @@
 #include <Core/Resources.h>
 #include <Render/Surface.h>
 #include <Render/Sprite.h>
+#include "Core/Vec2.h"
+#include "TileCollider.h"
+
+#include "Tileson/tileson.hpp"
+#include "Monster.h"
 
 enum tile {
 	TILE_GRASS = 0,
@@ -34,56 +39,46 @@ public:
 	static void Zoom(float scale);
 
 	Map();
-	Map(const Map& orig);
 	virtual ~Map();
 
-	bool Load(std::string path);
-	bool SaveMap(std::string path);
+	bool LoadJson(std::string path);
+	bool SaveJson(std::string path);
+
+
 
 	void Draw();
-	void DrawDebugTileRect(const Vec2& pos, tile mtile);
-	void Free();
+	void DrawLayer(std::string layerName);
 
-	bool CanMove(const Vec2& pos);
-	bool CanMove(tile mtile);
+	void DrawLayerOrderNR(std::string layerName, int nr);
 
-	bool SetTile(const Vec2& pos, tile mtile);
-	inline tile GetTile(const Vec2& pos);
-	tile GetTileNear(const Vec2& pos, const Vec2& side_offset);
+	Vec2 GetMapSize();
+	Vec2 GetTileSize();
+	Vec2 GetMapSizePixels();
+	void GetCollisionBoxes();
 
-	size_t GetW();
-	size_t GetH();
+	void SpawnMonsters();
+
+	void RegisterCollisionBoxes();
+
+
+	void SetMapSize(Vec2 size);
+	void SetTileSize(Vec2 size);
+	void SetMapSizePixels(Vec2 size);
 
 private:
-	Uint32 seed;
-	tile** _Tile_map;
-	size_t _max_grid_x;
-	size_t _max_grid_y;
-	size_t _tile_grid_size;
+	std::unique_ptr<tson::Map> _map; //Tileson Map container
 
-	Sprite _nosprite;
+	SDL_Texture* _tileset_texture;
+	Sprite _draw_sprite;
 
-	Sprite _sprite_grass;
-	Sprite _sprite_plain_grass;
-	Sprite _sprite_water;
-	Sprite _sprite_water_border;
-	Sprite _sprite_mountain;
-	Sprite _sprite_tree;
-	Sprite _sprite_tree_spruce;
-	//ground tile frame 89 90 91 92 93 94, 108,109,110,111,112,113
-	Sprite _sprite_ground;
+	Vec2 MapSize;
+	Vec2 TileSize;
+	Vec2 MapSizePixels;
 
-	void DrawTile(const Vec2& pos_local, tile mtile);
+	std::vector <TileCollider> CollisionTiles;
+	
+
 };
-
-inline
-tile Map::GetTile(const Vec2& pos) {
-	if (pos.x < 0 || pos.y < 0 || pos.x >= _max_grid_x || pos.y >= _max_grid_y) {
-		return TILE_WATER;
-	}
-
-	return _Tile_map[static_cast<int> (pos.y)][static_cast<int> (pos.x)];
-}
 
 #endif	/* MAP_H */
 
