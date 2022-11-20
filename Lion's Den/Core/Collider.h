@@ -1,5 +1,8 @@
 //
 // Created by snickers on 14.05.15.
+// 
+// Edit by Dawid Dzi?gielewski 
+// 
 //
 
 #ifndef ENGINE_COLLIDER_H

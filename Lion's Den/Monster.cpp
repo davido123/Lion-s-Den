@@ -169,7 +169,7 @@ void Monster::Move()
 	
 	if (a.GetLength() < 250)
 	{
-		Drawer::Line(ppos, mtar, COLOR_RED);
+		//Drawer::Line(ppos, mtar, COLOR_RED);
 		_target = true;
 		_current_action = MOVE;
 		Vec2 vel = GetVel();
@@ -181,7 +181,7 @@ void Monster::Move()
 
 		if (a.GetLength() < 70)
 		{
-			Drawer::Line(ppos, mtar, COLOR_OLIVE);
+			//Drawer::Line(ppos, mtar, COLOR_OLIVE);
 			_current_action = ATTACK;
 			AnimateAttack();
 		}

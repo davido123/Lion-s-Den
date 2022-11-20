@@ -28,7 +28,7 @@ const int& Resources::GetDefaultFontPtsize(){
 const std::string& Resources::GetDefaultStyle(){
     return _default_style;
 }
-
+//Set default font used for in game rendered text
 void Resources::SetDefaultFont(const std::string font){
     _default_font = font;
 }

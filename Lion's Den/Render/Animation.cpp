@@ -53,6 +53,12 @@ void Animation::SetFrameSize(const Vec2& size) {
 	_frame_size = size;
 }
 
+void Animation::SetSound(Audio* sound)
+{
+	_animation_sound = sound;
+	_have_animation_sound = true;
+}
+
 Uint16 Animation::GetBeginFrame() const {
 	return _begin_frame;
 }
@@ -90,7 +96,17 @@ void Animation::ResetFrame()
 
 void Animation::OnAnimation() {
 	/**/
+	if (_have_animation_sound)
+	{
+		if (_current_frame == _begin_frame+1 && !_animation_sound_played)
+		{
+			_animation_sound->Play();
+			_animation_sound_played = true;
+		}
 
+		
+
+	}
 	if (_animate_once)
 	{
 
@@ -106,6 +122,7 @@ void Animation::OnAnimation() {
 		if (_current_frame > _max_frame) {
 			_current_frame = _begin_frame;
 			_animation_finished = true;
+			_animation_sound_played = false;
 		}
 
 	}
@@ -121,6 +138,7 @@ void Animation::OnAnimation() {
 
 		if (_current_frame > _max_frame) {
 			_current_frame = _begin_frame;
+			_animation_sound_played = false;
 		}
 
 	}

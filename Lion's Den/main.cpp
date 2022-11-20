@@ -69,10 +69,6 @@ enum GameState {
 	StatsBar* GuiBox_StatsBar;
 	Inventory* Player_Inventory;
 	
-	//
-	Box* GuiBox_SaveMenu;
-	Box* GuiBox_SaveMenu_Upper;
-	Box* GuiBox_SaveMenu_Lower;
 
 	//##Buttons
 	Button* GuiButton_MainMenu_Start;
@@ -80,13 +76,7 @@ enum GameState {
 	Button* GuiButton_MainMenu_ExitGame;
 	Button* GuiButton_MainMenu_NewGame;
 	Button* GuiButton_MainMenu_LoadGame;
-	//
-	Button* GuiButton_Save_Slot1;
-	Button* GuiButton_Save_Slot2;
-	Button* GuiButton_Save_Slot3;
-	Button* GuiButton_PlayNewGame;
-	Button* GuiButton_LoadGame;
-	Button* GuiButton_SaveGame;
+
 
 
 
@@ -109,6 +99,7 @@ enum GameState {
 	bool ShowOptions = 0;
 	bool ShowLoad = 0;
 	bool ShowHelp = 0;
+	bool muteMusic=0;
 
 	bool Engine::Pause=0;
 
@@ -118,7 +109,13 @@ enum GameState {
 
 //#####################################################End Of Globals
 void Engine::OnInit() {
+	//Update Item Modifiers XML file from code
 	Item::FillModifiersFile();
+	
+	//Update Monster Data XML file from code
+	Monster::SaveMonsterTypes();
+
+	//Load data of all Save files from Data/Saves
 	saves.clear();
 	for (const auto& file : std::filesystem::directory_iterator("Data/Saves/"))
 	{
@@ -129,14 +126,12 @@ void Engine::OnInit() {
 		saves.push_back(savename);
 		cout <<"Found save:" << file.path().filename().string() << endl;
 	}
+
+	//Load Game Background music
 	Audio *a = new Audio("Data/Sounds/test.wav",true);
 	a->Play(1);
 	
-	
-
-
-
-
+	//Initialise settings and debugui singleton classes
 	settings = Settings::GetInstance("1");
 	debugui = DebugUI::GetInstance("1");
 	//settings->Load_File("Settings.json");
@@ -147,12 +142,15 @@ void Engine::OnInit() {
 	map2->LoadJson("Data/Maps/Map.json");
 	map2->GetCollisionBoxes();
 	map2->RegisterCollisionBoxes();
-	Monster::SaveMonsterTypes();
+
+
 
 	//Initializing layers
 	Engine::AddLayer();
 	Engine::AddLayer();
 	Engine::AddLayer();
+
+
 	layer_player = Engine::GetRootAtLayer(0);
 	layer_player->_custom_render = true;
 	layer_gui = Engine::GetRootAtLayer(1);
@@ -239,23 +237,16 @@ void Engine::OnEvent(SDL_Event *event, const Uint8 *keyboardState) {
 						{
 							GuiBox_MainMenu->Show(false);
 							ShowOptions = true;
-
 						}
 						else if (GUI::GetLastClicked()->GetLabel() == "Play")
 						{
 							ShowLoad = true;
-
 							GuiBox_MainMenu->Show(false);
-
-
 						}
 						else if (GUI::GetLastClicked()->GetLabel() == "Help")
 						{
 							ShowHelp = true;
-
 							GuiBox_MainMenu->Show(false);
-
-
 						}
 				}
 			}
@@ -306,7 +297,7 @@ void Engine::OnUpdate() {
 	}
 }
 void Engine::OnRender() {
-	ImGui::ShowDemoWindow();
+	//ImGui::ShowDemoWindow();
 	if (_gameState == PLAY)
 	{
 		map2->DrawLayer("Floor");
@@ -673,7 +664,7 @@ void Engine::DrawOptionsMenu(){
 		ImGui::Begin("Opcje");
 		if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None))
 		{
-			if (ImGui::BeginTabItem("Graphics"))
+			if (ImGui::BeginTabItem("Graphics")) 
 			{
 				int display_index=0, display_count=0;
 				int modes= SDL_GetNumDisplayModes(0);
@@ -733,8 +724,38 @@ void Engine::DrawOptionsMenu(){
 					delete SDL_DisplayModes[i];
 				}
 			}
-			if (ImGui::BeginTabItem("Inne")){
-				ImGui::Text("Dzial w budowie");
+			if (ImGui::BeginTabItem("Sound")){
+				
+
+				int masterVolume = Audio::GetMasterVolume();
+				int musicVolume = Audio::GetMusicVolume();
+				
+
+				ImGui::SliderInt("Sound Volume",&masterVolume,0,100);
+				ImGui::SliderInt("Music Volume",&musicVolume,0,100);
+				ImGui::Checkbox("Mute Music", &muteMusic);
+
+				Audio::SetMasterVolume(masterVolume);
+				Audio::SetMusicVolume(musicVolume);
+				if (muteMusic)
+				{
+					Audio::SetMusicVolume(0);
+				}
+				if (ImGui::Button("Back"))
+				{
+					ShowOptions = false;
+					GuiBox_MainMenu->Show(true);
+				}
+
+				
+
+				
+
+
+
+
+
+
 				ImGui::EndTabItem();
 			}
 			ImGui::EndTabBar();
@@ -806,6 +827,50 @@ void Engine::DrawHelpMenu()
 		{
 			ImGui::BeginChild("child", ImVec2(0,ImWindowSize.y*0.7), true);
 			ImGui::TextWrapped("Created by Dawid Dziegielewski");
+
+
+			ImGui::TextWrapped("Assets used in this project are from opengameart.org:\n ");
+
+			ImGui::TextWrapped("Audio:\n"
+			"File:Death.wav       Author:Michel Baradari  License:CC-BY 3.0\n"
+			"File:0.ogg,pain1.wav Author:swuing           License:CC-BY 3.0\n"
+			"File:hit.wav         Author:tarfmagougou     License:CC-BY-SA 3.0\n"
+			"File:inventory.wav   Author:artisticdude     License:CC-BY 3.0 / CC-BY-SA 3.0 / GPL 2.0 / GPL 3.0\n"
+			"File:Sword.wav       Author:remaxim          License:CC0\n"
+			"File:test.wav		Author:mrpoly           License:CC0\n\n"
+
+			"Graphics:\n"
+			"All Characters Sprites used are from Liberated Pixel Cup\n"
+			"https://lpc.opengameart.org/\n"
+			"Author:pennomi  License:CC-BY-SA 3.0 / GPL 3.0\n"
+
+			"DungeonTileset       Author:Elthen           License:CC-BY-NC 4.0\n"
+			"Gui Elements         Author:Buch             License:CC-BY-SA 3.0\n"
+
+
+
+			);
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			
+
+
+
+			
+
+
+
+
+
+
+
 
 
 
@@ -904,8 +969,8 @@ void Engine::DrawLoadMenu()
 					}
 					if (column == 2)
 					{
-						ImGui::TableSetColumnIndex(column);
-						ImGui::Text("Time");
+						ImGui::TableSetColumnIndex(column);		
+						ImGui::Text("Time:%d ms",player->timeplayed);
 					}
 					if (column == 3)
 					{
@@ -939,6 +1004,7 @@ void Engine::DrawLoadMenu()
             ImGui::Text("%d",rows+1);
 			ImGui::TableSetColumnIndex(1);
             ImGui::Text("Empty Slot");
+
 			ImGui::TableSetColumnIndex(3);
 			if (ImGui::Button("New Game"))
 			{

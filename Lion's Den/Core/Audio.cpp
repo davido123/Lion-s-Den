@@ -130,7 +130,7 @@ void Audio::Play(int loops){
         }
 
         _channel = Mix_PlayChannel(-1, static_cast<Mix_Chunk*>(_audio_data), loops);
-        SetVolume(_volume);
+        SetVolume(_g_volume);
         CalcPanning();
 
         if(_channel == -1){
