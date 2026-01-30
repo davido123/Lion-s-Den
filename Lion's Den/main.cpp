@@ -297,7 +297,7 @@ void Engine::OnUpdate() {
 	}
 }
 void Engine::OnRender() {
-	ImGui::ShowDemoWindow();
+	//ImGui::ShowDemoWindow();
 	if (_gameState == PLAY)
 	{
 
