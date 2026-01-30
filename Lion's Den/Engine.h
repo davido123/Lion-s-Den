@@ -40,6 +40,7 @@
 #include "ImGUI/imgui_sdl.h"
 #include "ImGui/imgui_impl_sdl.h"
 #include <Render/Sprite.h>
+#include <DebugUI.h>
 
 class Engine {
 public:
@@ -82,6 +83,7 @@ public://own functions
 	Sprite Background;
 	static bool Pause;
 	std::vector<std::string> saves;
+
 	bool deleted=true;
 	bool reschange = false;
 

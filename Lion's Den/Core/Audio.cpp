@@ -1,7 +1,7 @@
 #include "Audio.h"
 
-int Audio::_g_volume = 100;
-int Audio::_mus_volume = 100;
+int Audio::_g_volume = 1;
+int Audio::_mus_volume = 1;
 std::set<Audio*> Audio::_WithListeners;
 
 void Audio::Init(int alloc_channels){
@@ -130,7 +130,7 @@ void Audio::Play(int loops){
         }
 
         _channel = Mix_PlayChannel(-1, static_cast<Mix_Chunk*>(_audio_data), loops);
-        SetVolume(_volume);
+        SetVolume(_g_volume);
         CalcPanning();
 
         if(_channel == -1){

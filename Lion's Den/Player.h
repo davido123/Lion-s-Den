@@ -39,7 +39,7 @@ public:
 
 	
 	void OnUpdate();
-	void OnCollide (Object* obj) override ;
+	void OnCollide(Object* attacker) override;
 
 	Timer timer;
 
@@ -82,6 +82,7 @@ public:
 	int GetCurrentAction();
 	int GetCurrentSide();
 	void SetCurrentAction();
+	int CalculateDamage();
 
 	int GetLife();
 	int GetMana();
@@ -97,6 +98,8 @@ public:
 	void EmitAction(const std::string& action_name);
 	bool drawStatBox=0;
 	bool isDead;
+
+	double timeplayed;
 private:
 
 	static const int input_timer_time = 500;

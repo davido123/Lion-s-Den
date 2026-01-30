@@ -28,7 +28,7 @@ const int& Resources::GetDefaultFontPtsize(){
 const std::string& Resources::GetDefaultStyle(){
     return _default_style;
 }
-
+//Set default font used for in game rendered text
 void Resources::SetDefaultFont(const std::string font){
     _default_font = font;
 }
@@ -192,7 +192,7 @@ SDL_RWops* Resources::ReadFile(const std::string& file_path, std::vector<char>& 
     File file(file_path);
 
     if(file.Read(buffer) && !buffer.empty()){
-        return SDL_RWFromMem(&buffer[0], buffer.size());
+        return SDL_RWFromMem(&buffer[0], static_cast<int>(buffer.size()));
     }
 
     return nullptr;
@@ -212,7 +212,7 @@ SDL_Texture* Resources::ReadRWtexture(const std::string& file_path){
 }
 
 TTF_Font *Resources::ReadFontFromMem(int ptsize, std::vector<char>& buffer){
-    SDL_RWops* data = SDL_RWFromConstMem(&buffer[0], buffer.size());
+    SDL_RWops* data = SDL_RWFromConstMem(&buffer[0], static_cast<int>(buffer.size()));
     return TTF_OpenFontRW(data, 1, ptsize);
 }
 

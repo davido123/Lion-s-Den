@@ -18,7 +18,11 @@ Player::Player()
 	SetColliderBox(Vec2(32.0f, 32.0f));
 	SetColliderPos(Vec2(GetColliderBox().x / 2, GetColliderBox().y));
 
+	_sound_slash=new Audio("Data/Sounds/Sword.wav",false);
 
+	_sound_walk=new Audio("Data/Sounds/0.ogg",false);
+	_sound_pain=new Audio("Data/Sounds/pain1.wav",false);
+	_sound_death=new Audio("Data/Sounds/death.wav",false);
 
 	//stay
 	_anim_stay.SetBeginFrame(20);
@@ -49,21 +53,25 @@ Player::Player()
 	_anim_attack_up.SetBeginFrame(0);
 	_anim_attack_up.SetMaxFrame(5);
 	_anim_attack_up.SetCurrentFrame(0);
+	_anim_attack_up.SetSound(_sound_slash);
 	_anim_attack_up._animate_once = true;
 
 	_anim_attack_left.SetBeginFrame(6);
 	_anim_attack_left.SetMaxFrame(11);
 	_anim_attack_left.SetCurrentFrame(6);
+	_anim_attack_left.SetSound(_sound_slash);
 	_anim_attack_left._animate_once = true;
 
 	_anim_attack_down.SetBeginFrame(12);
 	_anim_attack_down.SetMaxFrame(17);
 	_anim_attack_down.SetCurrentFrame(12);
+	_anim_attack_left.SetSound(_sound_slash);
 	_anim_attack_down._animate_once = true;
 
 	_anim_attack_right.SetBeginFrame(18);
 	_anim_attack_right.SetMaxFrame(23);
 	_anim_attack_right.SetCurrentFrame(18);
+	_anim_attack_right.SetSound(_sound_slash);
 	_anim_attack_right._animate_once = true;
 
 	_sprite.SetTexture(Resources::GetTexture("Characters/Player_Walk.png"));
@@ -104,11 +112,7 @@ Player::Player()
 	SetColliderPos(Vec2(GetColliderBox().x / 2, GetColliderBox().y));
 	SetMoveTarget(GetPos());
 
-	_sound_slash=new Audio("Data/Sounds/Sword.wav",false);
 
-	_sound_walk=new Audio("Data/Sounds/0.ogg",false);
-	_sound_pain=new Audio("Data/Sounds/pain1.wav",false);
-	_sound_death=new Audio("Data/Sounds/death.wav",false);
 	velIncrease = 0.2f;
 	velMax = 3.0f;
 
@@ -125,7 +129,7 @@ void Player::AnimateAttack()
 {
 	if (!_sound_slash->IsPlaying())
 	{
-		_sound_slash->Play();
+		//_sound_slash->Play();
 	}
 
 	_current_action = ATTACK;
@@ -164,6 +168,10 @@ bool Player::Serialize(rapidjson::Writer<rapidjson::StringBuffer>* writer) const
 	writer->Key("y");
 	writer->Double(GetPos().y);
 	writer->EndObject();
+	writer->Key("PlayTime");
+	writer->Double(timeplayed+SDL_GetTicks());
+
+
 	writer->EndObject();
 
 	return true;
@@ -173,7 +181,7 @@ bool Player::Serialize(rapidjson::Writer<rapidjson::StringBuffer>* writer) const
 bool Player::Deserialize(const rapidjson::Value& obj)
 {
 	SetPos(Vec2(obj["Position"]["x"].GetFloat(), obj["Position"]["y"].GetFloat()));
-
+	timeplayed = obj["PlayTime"].GetDouble();
 	return true;
 }
 void Player::OnRender() {
@@ -419,7 +427,7 @@ void Player::MoveSound() {
 		
 		if (footstep.GetTime() > SECOND * (velMax-GetVel().GetLength()) *0.5f)
 		{
-			_sound_walk->Play();
+			//_sound_walk->Play();
 				footstep.Stop();
 		}
 			
@@ -441,27 +449,22 @@ void Player::ManageAnimation()
 			if (_side == SIDE_LEFT)
 			{
 				_current_sprite->SetAnimation(&_anim_run_left);
-				_sabre.SetAnimation(&_anim_attack_left);
 			}
 			if (_side == SIDE_UP)
 			{
 				_current_sprite->SetAnimation(&_anim_run_up);
-				_sabre.SetAnimation(&_anim_attack_up);
 			}
 			if (_side == SIDE_DOWN)
 			{
 				_current_sprite->SetAnimation(&_anim_run_down);
-				_sabre.SetAnimation(&_anim_attack_down);
 			}
 			if (_side == SIDE_RIGHT)
 			{
 				_current_sprite->SetAnimation(&_anim_run_right);
-				_sabre.SetAnimation(&_anim_attack_right);
 			}
 			if (_side == SIDE_NONE)
 			{
 				_current_sprite->SetAnimation(&_anim_stay);
-				_sabre.SetAnimation(&_anim_attack_down);
 			}
 		}
 		if (_current_action == STAY)
@@ -708,6 +711,24 @@ int Player::GetCurrentSide()
 	return _side;
 }
 
+int Player::CalculateDamage()
+{
+	int phys=AddPhys + AddPhys * IncPhys;
+	int fire = AddFire + AddFire * IncFire+ AddFire* IncEle;
+	int cold = AddCold + AddCold * IncCold + AddCold * IncEle;
+	int light = AddLightning + AddLightning * IncLightning + AddLightning * IncEle;
+	int finaldmg = phys + fire + cold + light;
+	if (finaldmg < 10)
+	{
+		return 10;
+	}
+	else
+	{
+		return finaldmg;
+	}
+	
+}
+
 int Player::GetLife()
 {
 	return Life;
@@ -836,21 +857,33 @@ void Attack::OnUpdate()
 
 }
 
-void Attack::OnCollide(Object* obj)
+void Attack::OnCollide(Object* tar)
 {
 	// printf("%d collided with %d \n",this->GetId(), obj->GetId());
 	
-	if (obj->GetType()==OBJ_ENTITY_PLAYER)
+	if (tar->GetType()==OBJ_ENTITY_PLAYER)
 	{
-		Player* target = static_cast<Player*>(obj);
+		Player* target = static_cast<Player*>(tar);
 		target->SetLife(target->GetLife() - 10);
-	 printf("Target:%d attacked life left: %d \n",target->GetId(), target->GetLife() );
+		 printf("Target:%d attacked life left: %d \n",target->GetId(), target->GetLife() );
 
 	}
-	if (obj->GetType()==OBJ_ENTITY_MONSTER)
+	if (tar->GetType()==OBJ_ENTITY_MONSTER)
 	{
-		Monster* target = static_cast<Monster*>(obj);
+
+		//Player* a = static_cast<Player*>(att);
+		//int attackVal = a->CalculateDamage();
+		//printf("attackVal: %d",attackVal);
+
+
+
+		Monster* target = static_cast<Monster*>(tar);
 		target->SetLife(target->GetLife() - 50);
+
+		
+
+
+
 		 printf("Target:%d attacked life left: %d \n",target->GetId(), target->GetLife() );
 
 	}

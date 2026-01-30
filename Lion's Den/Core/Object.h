@@ -138,7 +138,13 @@ public:
         return a->_pos.y < b->_pos.y;
     }
 
-    
+    static int GetObjectCount()
+    {
+        return _object_count;
+    }
+
+
+
 	void SetType(obj_type type);
 	Vec2 _pos_relative;
 	Vec2 _size_relative;
@@ -154,7 +160,7 @@ private:
 
     static int _last_id; //last created object id
     static std::unordered_map<std::string, Object*> _AllObjects;
-    
+    static int _object_count;
 
     bool _delete_later;
     bool _ignore_click;

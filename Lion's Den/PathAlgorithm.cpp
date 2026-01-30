@@ -266,7 +266,7 @@ float PathAlgorithm::CalculateDistance(Tile* _start, Tile* _end)
 	// Simple function to get the distance between tile A and B
 	float xVal = _start->mapX - _end->mapX;
 	float yVal = _start->mapY - _end->mapY;
-	return sqrt((xVal * xVal) + (yVal * yVal));
+	return sqrtf((xVal * xVal) + (yVal * yVal));
 }
 
 void PathAlgorithm::AddOpenTile(Tile* _tile, std::vector<Tile*> &_open)

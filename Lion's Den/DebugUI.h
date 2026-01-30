@@ -2,7 +2,7 @@
 
 
 #include <string>
-
+#include <vector>
 
 class DebugUI
 {
@@ -21,12 +21,24 @@ public:
 	virtual void RenderDebug();
 
 
+	std::vector<float>& getRenderFrameTimes() {
+           return m_Render_frameTimes;
+       }
+	std::vector<float>& getLogicFrameTimes() {
+           return m_Logic_frameTimes;
+       }
+
+	std::vector<float>& getFrameTimes() {
+           return m_frameTimes;
+       }
+
+
 
 
 private:
-
-
-
+	std::vector<float> m_Logic_frameTimes;
+	std::vector<float> m_Render_frameTimes;
+	std::vector<float> m_frameTimes;
 protected:
 	DebugUI(const std::string value) : value_(value)
 	{

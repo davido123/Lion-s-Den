@@ -17,8 +17,10 @@
 ObjListType Object::DeleteCandidates;
 std::unordered_map<std::string, Object*> Object::_AllObjects;
 int Object::_last_id = 0;
+int Object::_object_count = 0;
 
 const float ppm = 32.0f;
+
 
 Object* Object::FindByLabel(const std::string &label){
    auto found = _AllObjects.find(label);
@@ -337,6 +339,7 @@ void Object::SetDefaults(){
     _type = OBJ_NONE;
     _ignore_click = false;
     _ignore_sorting = false;
+    Object::_object_count++;
     SetVel(Vec2(0,0));
 }
 
