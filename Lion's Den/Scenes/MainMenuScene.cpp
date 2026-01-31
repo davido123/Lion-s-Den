@@ -51,6 +51,14 @@ void MainMenuScene::SetupMainMenu() {
         return;
     }
     
+    // Re-entering scene: reuse existing UI to avoid leaks and duplicate buttons
+    if (_mainMenuBox) {
+        _mainMenuBox->Show(true);
+        _mainMenuBox->RecalcCentered();
+        std::cout << "MainMenuScene: Reusing existing menu" << std::endl;
+        return;
+    }
+    
     // Create main menu box
     _mainMenuBox = new Box(85, 75, 20, 40, Resources::GetDefaultFont(), 16);
     _mainMenuBox->SetLabel("MainMenu");
@@ -134,8 +142,6 @@ void MainMenuScene::HandleButtonClicks() {
         if (_mainMenuBox) {
             _mainMenuBox->Show(false);
         }
-        // Play button should start a new game or switch to GameScene
-        // For now, it opens LoadGame menu
         _showLoad = true;
         UIManager::GetInstance().OpenLoadGame();
     }

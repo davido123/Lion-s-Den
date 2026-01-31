@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -170,6 +170,7 @@
     <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\main.cpp" />
     <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Map.cpp" />
     <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Systems\SceneManager.cpp" />
+    <ClCompile Include="Systems\EventSystem.cpp" />
     <ClCompile Include="Systems\ImGuiManager.cpp" />
     <ClCompile Include="Systems\UIManager.cpp" />
     <ClCompile Include="GUI\ImGuiHelper.cpp" />
@@ -205,6 +206,9 @@
     <ClCompile Include="Slot.cpp" />
     <ClCompile Include="TileCollider.cpp" />
     <ClCompile Include="Game\Game.cpp" />
+    <ClCompile Include="Components\Component.cpp" />
+    <ClCompile Include="Components\HealthComponent.cpp" />
+    <ClCompile Include="Components\MovementComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Common\constants.h" />
@@ -242,6 +246,7 @@
     <ClInclude Include="Scenes\HelpScene.h" />
     <ClInclude Include="Scenes\LoadGameScene.h" />
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Systems\SceneManager.h" />
+    <ClInclude Include="Systems\EventSystem.h" />
     <ClInclude Include="Systems\ImGuiManager.h" />
     <ClInclude Include="Systems\UIManager.h" />
     <ClInclude Include="GUI\ImGuiHelper.h" />
@@ -313,6 +318,9 @@
     <ClInclude Include="TileCollider.h" />
     <ClInclude Include="Tileson\tileson.hpp" />
     <ClInclude Include="Game\Game.h" />
+    <ClInclude Include="Components\Component.h" />
+    <ClInclude Include="Components\HealthComponent.h" />
+    <ClInclude Include="Components\MovementComponent.h" />
     <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="Systems\SceneManager.h" />
   </ItemGroup>

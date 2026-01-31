@@ -7,6 +7,7 @@
 #include "../Core/Object.h"
 #include "../GUI/Widgets/StatsBar.h"
 #include "../GUI/Widgets/Inventory.h"
+#include "../Systems/EventSystem.h"
 
 /**
  * GameScene - Handles the main gameplay state
@@ -51,8 +52,17 @@ private:
     // Game state
     bool _initialized;
     bool _drawCollisions;
-    
+
+    // Event subscriptions (unsubscribe in Exit)
+    EventSystem::EventID _playerDeathSubscription = 0;
+    EventSystem::EventID _monsterKilledSubscription = 0;
+    EventSystem::EventID _healthChangedSubscription = 0;
+    EventSystem::EventID _manaChangedSubscription = 0;
+    EventSystem::EventID _experienceChangedSubscription = 0;
+
     void SetupGame();
     void CleanupGame();
     void HandlePlayStateEvents(SDL_Event* event);
+    void HandlePlayerDeath(Player* player);
+    void HandleMonsterKilled(Monster* monster, Player* killer);
 };

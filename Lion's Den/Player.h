@@ -16,8 +16,8 @@
 #include <IO/JsonBase.h>
 #include <functional>
 
-
-
+class HealthComponent;
+class MovementComponent;
 
 
 enum turn_side {
@@ -84,7 +84,8 @@ public:
 	void SetCurrentAction();
 	int CalculateDamage();
 
-	int GetLife();
+	int GetLife() const;
+	int GetMaxLife() const;
 	int GetMana();
 	int GetExperience();
 
@@ -151,8 +152,6 @@ private:
 	float velIncrease;
 	float velMax;
 
-	int Life;
-	int MaxLife;
 	int Mana;
 	int Experience;
 	int Armour;
@@ -180,6 +179,9 @@ private:
 	int MpReg;
 	int AddArmour;
 	int IncArmour;
+
+	HealthComponent* _healthComponent;
+	MovementComponent* _movementComponent;
 
 	
 

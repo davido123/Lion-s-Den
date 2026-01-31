@@ -17,6 +17,7 @@
 #include "../Player.h"
 #include "../Map.h"
 #include "../Systems/SceneManager.h"
+#include "../Systems/EventSystem.h"
 #include "../Game/Game.h"
 #include <iostream>
 
@@ -40,7 +41,48 @@ void GameScene::Enter() {
         SetupGame();
         _initialized = true;
     }
-    
+
+    // Subscribe to player death (decoupled via EventSystem)
+    _playerDeathSubscription = EventSystem::GetInstance().Subscribe("PlayerDeath",
+        [this](void* data) {
+            PlayerDeathEvent* evt = static_cast<PlayerDeathEvent*>(data);
+            if (evt && evt->player) {
+                HandlePlayerDeath(evt->player);
+            }
+        });
+
+    // Subscribe to monster killed (e.g. XP, loot)
+    _monsterKilledSubscription = EventSystem::GetInstance().Subscribe("MonsterKilled",
+        [this](void* data) {
+            MonsterKilledEvent* evt = static_cast<MonsterKilledEvent*>(data);
+            if (evt && evt->monster) {
+                HandleMonsterKilled(evt->monster, evt->killer);
+            }
+        });
+
+    // Subscribe to health/stats changes so UI updates via events (no direct Player->StatsBar)
+    _healthChangedSubscription = EventSystem::GetInstance().Subscribe("HealthChanged",
+        [this](void* data) {
+            HealthChangedEvent* evt = static_cast<HealthChangedEvent*>(data);
+            if (evt && evt->player && _statsBar && evt->player == _player) {
+                _statsBar->UpdateValues(evt->player);
+            }
+        });
+    _manaChangedSubscription = EventSystem::GetInstance().Subscribe("ManaChanged",
+        [this](void* data) {
+            ManaChangedEvent* evt = static_cast<ManaChangedEvent*>(data);
+            if (evt && evt->player && _statsBar && evt->player == _player) {
+                _statsBar->UpdateValues(evt->player);
+            }
+        });
+    _experienceChangedSubscription = EventSystem::GetInstance().Subscribe("ExperienceChanged",
+        [this](void* data) {
+            ExperienceChangedEvent* evt = static_cast<ExperienceChangedEvent*>(data);
+            if (evt && evt->player && _statsBar && evt->player == _player) {
+                _statsBar->UpdateValues(evt->player);
+            }
+        });
+
     // Show gameplay UI
     if (_statsBar) {
         _statsBar->Show(true);
@@ -52,6 +94,27 @@ void GameScene::Enter() {
 
 void GameScene::Exit() {
     std::cout << "GameScene: Exiting game scene" << std::endl;
+    // Unsubscribe from events
+    if (_playerDeathSubscription != 0) {
+        EventSystem::GetInstance().Unsubscribe("PlayerDeath", _playerDeathSubscription);
+        _playerDeathSubscription = 0;
+    }
+    if (_monsterKilledSubscription != 0) {
+        EventSystem::GetInstance().Unsubscribe("MonsterKilled", _monsterKilledSubscription);
+        _monsterKilledSubscription = 0;
+    }
+    if (_healthChangedSubscription != 0) {
+        EventSystem::GetInstance().Unsubscribe("HealthChanged", _healthChangedSubscription);
+        _healthChangedSubscription = 0;
+    }
+    if (_manaChangedSubscription != 0) {
+        EventSystem::GetInstance().Unsubscribe("ManaChanged", _manaChangedSubscription);
+        _manaChangedSubscription = 0;
+    }
+    if (_experienceChangedSubscription != 0) {
+        EventSystem::GetInstance().Unsubscribe("ExperienceChanged", _experienceChangedSubscription);
+        _experienceChangedSubscription = 0;
+    }
     // Hide gameplay UI
     if (_statsBar) {
         _statsBar->Show(false);
@@ -60,6 +123,18 @@ void GameScene::Exit() {
         _inventory->Show(false);
     }
     // Note: Game objects are cleaned up in CleanupGame() when scene is destroyed
+}
+
+void GameScene::HandlePlayerDeath(Player* player) {
+    (void)player;
+    // Death is handled by RenderImGui() (death dialog when _player->isDead).
+    // Use this for future logic: scene switch, stats, save, etc.
+}
+
+void GameScene::HandleMonsterKilled(Monster* monster, Player* killer) {
+    (void)monster;
+    (void)killer;
+    // Placeholder for XP, loot UI, achievements, etc. killer may be nullptr until last-attacker is tracked.
 }
 
 void GameScene::CleanupGame() {
@@ -109,12 +184,19 @@ void GameScene::SetupGame() {
         _map->RegisterCollisionBoxes();
     }
     
-    // Create player
+    // Use Game's player if it already exists (from OnGameInit); avoid creating a second player
+    // which would double-register with Collider and create phantom/collision conflicts
     if (!_player) {
-        _player = new Player();
-        Collider::RegisterObject(_player, _player->GetColliderPos(), _player->GetColliderBox(), false);
-        Collider::RegisterTarget(_player, _player->GetColliderPos(), _player->GetColliderBox());
-        _layerPlayer->Connect(_player);
+        Player* gamePlayer = Game::GetInstance().GetPlayer();
+        if (gamePlayer) {
+            _player = gamePlayer;
+            // Already registered with Collider and connected to layer by Game::OnGameInit
+        } else {
+            _player = new Player();
+            Collider::RegisterObject(_player, _player->GetColliderPos(), _player->GetColliderBox(), false);
+            Collider::RegisterTarget(_player, _player->GetColliderPos(), _player->GetColliderBox());
+            _layerPlayer->Connect(_player);
+        }
     }
     
     // Create StatsBar

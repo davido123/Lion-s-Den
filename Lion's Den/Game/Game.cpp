@@ -29,12 +29,17 @@ void Game::OnGameInit() {
 	//Load data of all Save files from Data/Saves
 	if (_engine) {
 		_engine->saves.clear();
-		for (const auto& file : std::filesystem::directory_iterator("Data/Saves/"))
-		{
-			std::string savename;
-			savename = file.path().filename().string();
-			_engine->saves.push_back(savename);
-			cout <<"Found save:" << file.path().filename().string() << endl;
+		std::filesystem::create_directories("Data/Saves");
+		try {
+			for (const auto& file : std::filesystem::directory_iterator("Data/Saves/")) {
+				if (file.is_directory()) {
+					std::string savename = file.path().filename().string();
+					_engine->saves.push_back(savename);
+					cout << "Found save:" << savename << endl;
+				}
+			}
+		} catch (const std::filesystem::filesystem_error&) {
+			// Directory missing or unreadable
 		}
 	}
 
@@ -242,6 +247,11 @@ void Game::OnGameUpdate() {
 }
 
 void Game::OnGameRender() {
+	// When GameScene is active it renders game content; skip here to avoid double rendering
+	Scene* active = SceneManager::GetInstance().GetActiveScene();
+	if (active && active->GetName() == "Game") {
+		return;
+	}
 	if (_gameState == PLAY) {
 		map2->DrawLayer("Floor");
 		map2->DrawLayer("Floor2");
@@ -279,7 +289,7 @@ void Game::HandlePauseMenu() {
 				SaveGame();
 				Engine::Pause = false;
 				_gameState = MAIN_MENU;
-				GuiBox_MainMenu->Show(true);
+				if (GuiBox_MainMenu) GuiBox_MainMenu->Show(true);
 				GuiBox_StatsBar->Show(false);
 				Player_Inventory->Show(false);
 				Player_Inventory->Clear();
@@ -318,7 +328,7 @@ void Game::HandlePlayerDeath() {
 			if (ImGui::Button("Yes", ImVec2(120, 0))) {
 				Engine::Pause = false;
 				_gameState = MAIN_MENU;
-				GuiBox_MainMenu->Show(true);
+				if (GuiBox_MainMenu) GuiBox_MainMenu->Show(true);
 				GuiBox_StatsBar->Show(false);
 				Player_Inventory->Show(false);
 				Player_Inventory->Clear();
@@ -354,9 +364,9 @@ void Game::OnRenderDebugGui() {
 		static float PlotData[100] = { 0.0f };
 		int PlotIndex = 0;
 
-		std::vector<float>& RenderFrameTimes = DebugUI::GetInstance("1")->getRenderFrameTimes();
-		std::vector<float>& LogicFrameTimes = DebugUI::GetInstance("1")->getLogicFrameTimes();
-		std::vector<float>& FrameTimes = DebugUI::GetInstance("1")->getFrameTimes();
+		std::deque<float>& RenderFrameTimes = DebugUI::GetInstance("1")->getRenderFrameTimes();
+		std::deque<float>& LogicFrameTimes = DebugUI::GetInstance("1")->getLogicFrameTimes();
+		std::deque<float>& FrameTimes = DebugUI::GetInstance("1")->getFrameTimes();
 
 		for (float time : RenderFrameTimes) {
 			RenderPlotData[RenderPlotIndex++] = time;
@@ -414,11 +424,15 @@ void Game::OnRenderDebugGui() {
 		ImGui::Text("player normalized diff:%f %f", ndif.x, ndif.y);
 		ImGui::Checkbox("Show Collisions borders", &DrawCollisions);
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-		ImGui::Text("GuiboxPOS %f  %f", GuiBox_MainMenu->GetPos().x, GuiBox_MainMenu->GetPos().y);
-		ImGui::Text("GuiboxSIZE %f  %f", GuiBox_MainMenu->GetSize().x, GuiBox_MainMenu->GetSize().y);
-		ImGui::Text("ButtonPOS %f  %f", GuiButton_MainMenu_NewGame->GetPos().x, GuiButton_MainMenu_NewGame->GetPos().y);
-		ImGui::Text("ButtonGlobalPOS %f  %f", GuiButton_MainMenu_NewGame->GetGlobalPos().x, GuiButton_MainMenu_NewGame->GetGlobalPos().y);
-		ImGui::Text("ButtonSize %f  %f", GuiButton_MainMenu_NewGame->GetSize().x, GuiButton_MainMenu_NewGame->GetSize().y);
+		if (GuiBox_MainMenu) {
+			ImGui::Text("GuiboxPOS %f  %f", GuiBox_MainMenu->GetPos().x, GuiBox_MainMenu->GetPos().y);
+			ImGui::Text("GuiboxSIZE %f  %f", GuiBox_MainMenu->GetSize().x, GuiBox_MainMenu->GetSize().y);
+		}
+		if (GuiButton_MainMenu_NewGame) {
+			ImGui::Text("ButtonPOS %f  %f", GuiButton_MainMenu_NewGame->GetPos().x, GuiButton_MainMenu_NewGame->GetPos().y);
+			ImGui::Text("ButtonGlobalPOS %f  %f", GuiButton_MainMenu_NewGame->GetGlobalPos().x, GuiButton_MainMenu_NewGame->GetGlobalPos().y);
+			ImGui::Text("ButtonSize %f  %f", GuiButton_MainMenu_NewGame->GetSize().x, GuiButton_MainMenu_NewGame->GetSize().y);
+		}
 		ImGui::Text("Mouse Pos %f  %f", Mouse::GetPos().x, Mouse::GetPos().y);
 		ImGui::Text("WindowSize %f  %f", Window::GetSize().x, Window::GetSize().y);
 		ImGui::Text("CameraSize %f  %f", Window::GetCamera()->GetViewport().x, Window::GetCamera()->GetViewport().y);
@@ -549,7 +563,7 @@ void Game::LoadGame() {
 	Collider::RegisterObject(player, player->GetColliderPos(), player->GetColliderBox(), false);
 	Collider::RegisterTarget(player, player->GetColliderPos(), player->GetColliderBox());
 	ShowLoad = false;
-	GuiBox_MainMenu->Show(false);
+	if (GuiBox_MainMenu) GuiBox_MainMenu->Show(false);
 	ShowOptions = false;
 	_gameState = PLAY;
 }
@@ -558,7 +572,7 @@ void Game::NewGame(const std::string& saveName) {
 	savename = saveName;
 	Engine::Pause = false;
 	ShowLoad = false;
-	GuiBox_MainMenu->Show(false);
+	if (GuiBox_MainMenu) GuiBox_MainMenu->Show(false);
 	ShowOptions = false;
 	_gameState = PLAY;
 	map2->SpawnMonsters();

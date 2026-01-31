@@ -1,4 +1,7 @@
 #include "Player.h"
+#include "Systems/EventSystem.h"
+#include "Components/HealthComponent.h"
+#include "Components/MovementComponent.h"
 #include <Render/Camera.h>
 #include <IO/JsonBase.h>
 #include <Render/Drawer.h>
@@ -9,7 +12,8 @@ Player::Player()
 {
 	Vec2 sprite_size(64, 64);
 	SetSize(sprite_size);
-	Life = 100;
+	_healthComponent = new HealthComponent(this, 100);
+	_movementComponent = new MovementComponent(this, 2.0f);
 	Mana = 100;
 	Experience = 100;
 	_side = SIDE_NONE;
@@ -122,7 +126,10 @@ Player::Player()
 
 Player::~Player()
 {
-	//dtor
+	delete _healthComponent;
+	_healthComponent = nullptr;
+	delete _movementComponent;
+	_movementComponent = nullptr;
 }
 
 void Player::AnimateAttack()
@@ -170,18 +177,25 @@ bool Player::Serialize(rapidjson::Writer<rapidjson::StringBuffer>* writer) const
 	writer->EndObject();
 	writer->Key("PlayTime");
 	writer->Double(timeplayed+SDL_GetTicks());
-
-
+	if (_healthComponent) {
+		writer->Key("Health");
+		writer->Int(GetLife());
+		writer->Key("MaxHealth");
+		writer->Int(GetMaxLife());
+	}
 	writer->EndObject();
 
 	return true;
-	//rializeToFile();
 }
 
 bool Player::Deserialize(const rapidjson::Value& obj)
 {
 	SetPos(Vec2(obj["Position"]["x"].GetFloat(), obj["Position"]["y"].GetFloat()));
 	timeplayed = obj["PlayTime"].GetDouble();
+	if (_healthComponent && obj.HasMember("Health") && obj.HasMember("MaxHealth")) {
+		_healthComponent->SetMaxHealth(obj["MaxHealth"].GetInt());
+		_healthComponent->SetHealth(obj["Health"].GetInt());
+	}
 	return true;
 }
 void Player::OnRender() {
@@ -232,7 +246,7 @@ void Player::DrawStatBox() {
 	ImGui::Text("");
 
 	ImGui::Separator();
-	ImGui::Text("Total Hp :%d",MaxLife+MaxHp+(MaxHp*IncHp)/100);
+	ImGui::Text("Total Hp :%d", GetMaxLife()+MaxHp+(MaxHp*IncHp)/100);
 	ImGui::Text("Added Max HP :%d",MaxHp);
 	ImGui::Text("Increased Max HP :%d%s",IncHp,"%");
 	ImGui::Text("HP Regeneration :%d",HpReg);
@@ -320,10 +334,13 @@ Vec2 Player::GetOldPos()
 void Player::OnUpdate() {
 	//if (!ImGui::GetIO().WantCaptureKeyboard && !ImGui::GetIO().WantCaptureMouse)
  	ManageAnimation();
-	
+
+	if (_healthComponent) _healthComponent->OnUpdate();
+	if (_movementComponent) _movementComponent->OnUpdate();
+
 	if(!isDead)
 	{
-		if (Life <= 0)
+		if (_healthComponent && _healthComponent->IsDead())
 		{
 			Collider::UnregisterTarget(this);
 			Collider::UnregisterObject(this);
@@ -331,6 +348,10 @@ void Player::OnUpdate() {
 
 			_sound_death->Play();
 
+			// Emit event for decoupled handling (e.g. GameScene death dialog)
+			PlayerDeathEvent evt;
+			evt.player = this;
+			EventSystem::GetInstance().Emit("PlayerDeath", &evt);
 		}
 
 		if (hurtTimer.GetTime() >0 )
@@ -640,8 +661,7 @@ void Player::UpdateStats()
 
 void Player::StatsReset()
 {
-	Life = 100;
-	MaxLife = 100;
+	if (_healthComponent) _healthComponent->SetHealth(_healthComponent->GetMaxHealth());
 	IncPhys=0;
 	IncFire=0;
 	IncCold=0;
@@ -729,9 +749,13 @@ int Player::CalculateDamage()
 	
 }
 
-int Player::GetLife()
+int Player::GetLife() const
 {
-	return Life;
+	return _healthComponent ? _healthComponent->GetHealth() : 0;
+}
+int Player::GetMaxLife() const
+{
+	return _healthComponent ? _healthComponent->GetMaxHealth() : 0;
 }
 int Player::GetMana()
 {
@@ -744,15 +768,21 @@ int Player::GetExperience()
 
 void Player::SetLife(int life)
 {
-	Life = life;
+	if (_healthComponent) _healthComponent->SetHealth(life);
 }
 void Player::SetMana(int mana)
 {
 	Mana = mana;
+	ManaChangedEvent evt;
+	evt.player = this;
+	EventSystem::GetInstance().Emit("ManaChanged", &evt);
 }
 void Player::SetExperience(int experience)
 {
 	Experience = experience;
+	ExperienceChangedEvent evt;
+	evt.player = this;
+	EventSystem::GetInstance().Emit("ExperienceChanged", &evt);
 }
 
 void Player::AddAction(const std::string& action_name, std::function<void()> action, Object* listener) {

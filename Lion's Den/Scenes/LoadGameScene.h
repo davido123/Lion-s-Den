@@ -22,7 +22,7 @@ public:
     const std::string& GetName() const override;
     
     // State management
-    void Show(bool show) { _visible = show; }
+    void Show(bool show);
     bool IsVisible() const { return _visible; }
     
 private:

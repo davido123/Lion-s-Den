@@ -9,6 +9,7 @@
 #include "../Game/Game.h"
 #include <iostream>
 #include <filesystem>
+#include <string>
 
 const std::string LoadGameScene::_name = "LoadGame";
 
@@ -26,6 +27,13 @@ void LoadGameScene::Enter() {
 void LoadGameScene::Exit() {
     std::cout << "LoadGameScene: Exiting load game menu" << std::endl;
     _visible = false;
+}
+
+void LoadGameScene::Show(bool show) {
+    _visible = show;
+    if (show) {
+        RefreshSaveList();
+    }
 }
 
 void LoadGameScene::HandleEvent(SDL_Event* event, const Uint8* keyboardState) {
@@ -146,6 +154,7 @@ void LoadGameScene::DrawSaveFileTable() {
                     ImGui::PushID(row);
                     if (ImGui::Button("Load Game")) {
                         _savename = _engine->saves.at(row);
+                        Game::GetInstance().SetSavename(_savename);
                         Game::GetInstance().LoadGame();
                         if (_engine) {
                             _engine->LoadedSaveNr = row;
@@ -176,7 +185,14 @@ void LoadGameScene::DrawSaveFileTable() {
             if (_engine) {
                 _engine->LoadedSaveNr = rows + 1;
             }
-            ImGui::OpenPopup("New Game");
+            // Start new game directly with default name so one click starts the game
+            std::string defaultName = "save";
+            if (rows > 0) {
+                defaultName = "save_" + std::to_string(rows + 1);
+            }
+            Game::GetInstance().NewGame(defaultName);
+            _visible = false;
+            UIManager::GetInstance().ShowLoadGame(false);
         }
         ImGui::EndTable();
     }
@@ -196,7 +212,9 @@ void LoadGameScene::DrawNewGameDialog() {
         ImGui::Separator();
         if (ImGui::Button("OK", ImVec2(120, 0))) {
             Game::GetInstance().NewGame(name);
-            ImGui::CloseCurrentPopup(); 
+            ImGui::CloseCurrentPopup();
+            _visible = false;
+            UIManager::GetInstance().ShowLoadGame(false);
         }
         ImGui::SetItemDefaultFocus();
         ImGui::SameLine();
@@ -209,11 +227,18 @@ void LoadGameScene::DrawNewGameDialog() {
 
 void LoadGameScene::RefreshSaveList() {
     if (!_engine) return;
-    
+
+    std::filesystem::create_directories("Data/Saves");
     _engine->saves.clear();
-    for (const auto& file : std::filesystem::directory_iterator("Data/Saves/")) {
-        std::string savename = file.path().filename().string();
-        _engine->saves.push_back(savename);
+    try {
+        for (const auto& file : std::filesystem::directory_iterator("Data/Saves/")) {
+            if (file.is_directory()) {
+                std::string savename = file.path().filename().string();
+                _engine->saves.push_back(savename);
+            }
+        }
+    } catch (const std::filesystem::filesystem_error&) {
+        // Directory missing or unreadable; leave saves empty
     }
     _engine->deleted = false;
 }

@@ -58,11 +58,13 @@ public:
 
 private:
 	std::vector<Object*> _Layers;
-	std::vector<Object*> _DeleteCandidates;
 
 	double _ms_per_update;
+	float _lastRenderDeltaSec = 1.0f / 60.0f;  // For ImGui io.DeltaTime (actual frame time)
 
 	void DeleteObjects();
+	void TrackRenderTime(Uint32 elapsed);
+	void TrackLogicTime(Uint32 elapsed);
 
 	bool Core_Init();
 	void Core_Event(SDL_Event* event, const Uint8* keyboardState);

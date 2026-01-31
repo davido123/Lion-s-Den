@@ -8,6 +8,7 @@
 #include "Engine.h"
 #include "Systems/SceneManager.h"
 #include "Systems/ImGuiManager.h"
+#include "Systems/UIManager.h"
 
 Engine::Engine() {
 }
@@ -30,41 +31,29 @@ void Engine::Start() {
     double lag = 0.0;
     while (!quit)
     {
-
         Uint32 current = SDL_GetTicks();
         Uint32 elapsed = current - previous;
-        std::vector<float>& RenderFrameTimes =DebugUI::GetInstance("1")->getRenderFrameTimes();
-		std::vector<float>& LogicFrameTimes =DebugUI::GetInstance("1")->getLogicFrameTimes();
-
         previous = current;
         lag += elapsed;
 
-		Uint32 RenderTicksPrevious = SDL_GetTicks();
+        // Store render frame delta for ImGui (clamp to avoid zero or huge values)
+        _lastRenderDeltaSec = elapsed / 1000.0f;
+        if (_lastRenderDeltaSec <= 0.0f) _lastRenderDeltaSec = 1.0f / 60.0f;
+        if (_lastRenderDeltaSec > 0.5f) _lastRenderDeltaSec = 0.5f;
+
+        Uint32 RenderTicksPrevious = SDL_GetTicks();
         Core_Render();
-		Uint32 RenderTicksCurrent = SDL_GetTicks();
-		Uint32 RenderTicksElapsed = RenderTicksCurrent - RenderTicksPrevious;
+        Uint32 RenderTicksElapsed = SDL_GetTicks() - RenderTicksPrevious;
+        TrackRenderTime(RenderTicksElapsed);
 
-		RenderFrameTimes.push_back(RenderTicksElapsed);
-        if (RenderFrameTimes.size() > 100) {
-            RenderFrameTimes.erase(RenderFrameTimes.begin());
-        }
-
-        
-        // Update Event function
         Core_Event(&event, keyboardState);
 
-        // Core Update Loop (possible multiple updates per frame render)
         while (lag >= _ms_per_update)
         {
             Uint32 LogicTicksPrevious = SDL_GetTicks();
             Core_Update();
-            Uint32 LogicTicksCurrent = SDL_GetTicks();
-            Uint32 LogicTicksElapsed = LogicTicksCurrent - LogicTicksPrevious;
-            
-            LogicFrameTimes.push_back(static_cast<float>(LogicTicksElapsed));
-            if (LogicFrameTimes.size() > 100) {
-                LogicFrameTimes.erase(LogicFrameTimes.begin());
-            }
+            Uint32 LogicTicksElapsed = SDL_GetTicks() - LogicTicksPrevious;
+            TrackLogicTime(static_cast<Uint32>(LogicTicksElapsed));
 
             DeleteObjects();
             lag -= _ms_per_update;
@@ -115,6 +104,22 @@ void Engine::DeleteObjects() {
             delete Object::DeleteCandidates[i];
         }
         Object::DeleteCandidates.clear();
+    }
+}
+
+void Engine::TrackRenderTime(Uint32 elapsed) {
+    auto& times = DebugUI::GetInstance("1")->getRenderFrameTimes();
+    times.push_back(static_cast<float>(elapsed));
+    if (times.size() > 100) {
+        times.pop_front();
+    }
+}
+
+void Engine::TrackLogicTime(Uint32 elapsed) {
+    auto& times = DebugUI::GetInstance("1")->getLogicFrameTimes();
+    times.push_back(static_cast<float>(elapsed));
+    if (times.size() > 100) {
+        times.pop_front();
     }
 }
 
@@ -171,58 +176,8 @@ bool Engine::Core_Init() {
     }
     // Set Background default texture
     Background.SetTexture("Background.png");
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO();
-    
-    // Enable ImGui .ini file for window state persistence
-    io.IniFilename = "imgui.ini";
-    
-    // Setup custom ImGui style
-    {
-        ImGuiStyle& style = ImGui::GetStyle();
-        
-        // Customize colors - Dark theme with game-specific accents
-        style.Colors[ImGuiCol_WindowBg] = ImVec4(0.10f, 0.10f, 0.15f, 0.95f);
-        style.Colors[ImGuiCol_TitleBg] = ImVec4(0.20f, 0.20f, 0.30f, 1.00f);
-        style.Colors[ImGuiCol_TitleBgActive] = ImVec4(0.25f, 0.25f, 0.35f, 1.00f);
-        style.Colors[ImGuiCol_Button] = ImVec4(0.30f, 0.30f, 0.50f, 1.00f);
-        style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.40f, 0.40f, 0.60f, 1.00f);
-        style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.50f, 0.50f, 0.70f, 1.00f);
-        style.Colors[ImGuiCol_FrameBg] = ImVec4(0.15f, 0.15f, 0.20f, 1.00f);
-        style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.20f, 0.20f, 0.30f, 1.00f);
-        style.Colors[ImGuiCol_FrameBgActive] = ImVec4(0.25f, 0.25f, 0.35f, 1.00f);
-        style.Colors[ImGuiCol_SliderGrab] = ImVec4(0.50f, 0.50f, 0.70f, 1.00f);
-        style.Colors[ImGuiCol_SliderGrabActive] = ImVec4(0.60f, 0.60f, 0.80f, 1.00f);
-        style.Colors[ImGuiCol_Tab] = ImVec4(0.20f, 0.20f, 0.30f, 1.00f);
-        style.Colors[ImGuiCol_TabHovered] = ImVec4(0.30f, 0.30f, 0.50f, 1.00f);
-        style.Colors[ImGuiCol_TabActive] = ImVec4(0.35f, 0.35f, 0.55f, 1.00f);
-        style.Colors[ImGuiCol_Header] = ImVec4(0.25f, 0.25f, 0.35f, 1.00f);
-        style.Colors[ImGuiCol_HeaderHovered] = ImVec4(0.35f, 0.35f, 0.50f, 1.00f);
-        style.Colors[ImGuiCol_HeaderActive] = ImVec4(0.40f, 0.40f, 0.60f, 1.00f);
-        
-        // Customize sizes and rounding
-        style.WindowRounding = 5.0f;
-        style.FrameRounding = 3.0f;
-        style.ScrollbarRounding = 3.0f;
-        style.GrabRounding = 3.0f;
-        style.TabRounding = 3.0f;
-        style.ChildRounding = 3.0f;
-        style.PopupRounding = 5.0f;
-        
-        // Spacing
-        style.WindowPadding = ImVec2(10.0f, 10.0f);
-        style.FramePadding = ImVec2(6.0f, 4.0f);
-        style.ItemSpacing = ImVec2(8.0f, 6.0f);
-        style.ItemInnerSpacing = ImVec2(6.0f, 4.0f);
-        style.TouchExtraPadding = ImVec2(0.0f, 0.0f);
-        
-        // Borders
-        style.WindowBorderSize = 1.0f;
-        style.FrameBorderSize = 1.0f;
-        style.PopupBorderSize = 1.0f;
-    }
-    
-    // Initialize ImGuiManager (replaces direct ImGuiSDL initialization)
+
+    // Single ImGui init path: ImGuiManager creates context, sets ini, applies style
     ImGuiManager::GetInstance().Initialize(Window::GetRenderer(), Window::GetWidth(), Window::GetHeight());
     Surface::BeginViewport(Vec2::ZERO, Window::GetSize());
 
@@ -260,7 +215,10 @@ void Engine::Core_Event(SDL_Event* event, const Uint8* keyboardState) {
 
         // Pass event to SceneManager (if scenes are active)
         SceneManager::GetInstance().HandleEvent(event, keyboardState);
-        
+
+        // ESC closes overlay menus (Options, Help, LoadGame) when open
+        UIManager::GetInstance().HandleEvent(event);
+
         // Pass other event to User OnEvent function (for backward compatibility)
         OnEvent(event, keyboardState);
     }
@@ -290,9 +248,8 @@ void Engine::Core_Update() {
     int mouseX, mouseY;
     const int buttons = SDL_GetMouseState(&mouseX, &mouseY);
 
-    // Setup low-level inputs (e.g. on Win32, GetKeyboardState(), or write to those fields from your Windows message loop handlers, etc.)
+    // Pass mouse state to ImGui (DeltaTime is set in Core_Render from actual frame time)
     ImGuiIO& io = ImGui::GetIO();
-    io.DeltaTime = 1.0f / 60.0f;
     io.MousePos = ImVec2(static_cast<float>(mouseX), static_cast<float>(mouseY));
     io.MouseDown[0] = buttons & SDL_BUTTON(SDL_BUTTON_LEFT);
     io.MouseDown[1] = buttons & SDL_BUTTON(SDL_BUTTON_RIGHT);
@@ -304,7 +261,7 @@ void Engine::Core_Update() {
     {
         //Update game data
 
-		std::vector<float>& FrameTimes =DebugUI::GetInstance("1")->getFrameTimes();
+		std::deque<float>& FrameTimes = DebugUI::GetInstance("1")->getFrameTimes();
 		
 		
         //test here
@@ -333,7 +290,7 @@ void Engine::Core_Update() {
         Uint32 TicksElapsed = TicksCurrent - TicksPrevious;
         FrameTimes.push_back(static_cast<float>(TicksElapsed));
         if (FrameTimes.size() > 100) {
-            FrameTimes.erase(FrameTimes.begin());
+            FrameTimes.pop_front();
         }
 
         Audio::CalcListenersPanning();
@@ -343,6 +300,10 @@ void Engine::Core_Update() {
 //
 //Call User OnRender Function
 void Engine::Core_Render() {
+    // Set ImGui delta time from actual last frame (before NewFrame)
+    ImGuiIO& io = ImGui::GetIO();
+    io.DeltaTime = _lastRenderDeltaSec;
+
     // Begin ImGui frame (managed by ImGuiManager)
     ImGuiManager::GetInstance().BeginFrame();
     

@@ -96,6 +96,7 @@ public:
 	void SaveGame();
 	void LoadGame();
 	void NewGame(const std::string& saveName);
+	void SetSavename(const std::string& name) { savename = name; }
 	
 	// UI Menu rendering (moved to scenes - kept for backward compatibility during migration)
 	void OnRenderDebugGui();

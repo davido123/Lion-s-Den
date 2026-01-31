@@ -1,5 +1,6 @@
 #include "Monster.h"
 #include "Player.h"
+#include "Systems/EventSystem.h"
 #include "PathAlgorithm.h"
 #include <Render/Drawer.h>
 #include <Item.h>
@@ -140,6 +141,11 @@ void Monster::OnUpdate()
 			Collider::UnregisterTarget(this);
 			Collider::UnregisterObject(this);
 			isDead = true;
+			// Emit event for decoupled handling (e.g. XP, loot UI)
+			MonsterKilledEvent evt;
+			evt.monster = this;
+			evt.killer = nullptr; // Could set last attacker in OnCollide if needed
+			EventSystem::GetInstance().Emit("MonsterKilled", &evt);
 		}
 		if (isDead && !droppedItem)
 		{
