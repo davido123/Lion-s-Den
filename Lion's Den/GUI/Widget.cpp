@@ -7,6 +7,7 @@
 !*/
 
 #include "GUI/Widget.h"
+#include "../ImGui/imgui.h"
 
 Widget::Widget(const Vec2& pos, const Vec2& size):
     _visible(true), _bg_visible(true)
@@ -136,7 +137,12 @@ void Widget::OnUpdate(){
         return;
     }
 
-    CheckTop();
+    // Check if ImGui is capturing mouse - if so, don't set this widget as top object
+    // This prevents GUI widgets from being clickable when ImGui windows are open
+    ImGuiIO& io = ImGui::GetIO();
+    if (!io.WantCaptureMouse) {
+        CheckTop();
+    }
 
     if(!_intersected){
         if(Mouse::AnyPressed()){

@@ -1,3 +1,5 @@
+#ifndef INVENTORY_H_
+#define INVENTORY_H_
 
 #include <string>
 #include <sstream>
@@ -86,3 +88,5 @@ protected:
 	
 
 };
+
+#endif /* INVENTORY_H_ */

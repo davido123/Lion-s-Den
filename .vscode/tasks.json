@@ -1,0 +1,103 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "MSBuild: Build Release",
+            "type": "process",
+            "command": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe",
+            "args": [
+                "Lion's Den.sln",
+                "/p:Configuration=Release",
+                "/p:Platform=x64",
+                "/t:Build",
+                "/nologo",
+                "/v:minimal"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "MSBuild: Build Debug",
+            "type": "process",
+            "command": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe",
+            "args": [
+                "Lion's Den.sln",
+                "/p:Configuration=Debug",
+                "/p:Platform=x64",
+                "/t:Build",
+                "/nologo",
+                "/v:minimal"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "MSBuild: Rebuild Release",
+            "type": "process",
+            "command": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe",
+            "args": [
+                "Lion's Den.sln",
+                "/p:Configuration=Release",
+                "/p:Platform=x64",
+                "/t:Rebuild",
+                "/nologo",
+                "/v:minimal"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "MSBuild: Rebuild Debug",
+            "type": "process",
+            "command": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe",
+            "args": [
+                "Lion's Den.sln",
+                "/p:Configuration=Debug",
+                "/p:Platform=x64",
+                "/t:Rebuild",
+                "/nologo",
+                "/v:minimal"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "MSBuild: Clean",
+            "type": "process",
+            "command": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe",
+            "args": [
+                "Lion's Den.sln",
+                "/p:Configuration=Release",
+                "/p:Platform=x64",
+                "/t:Clean",
+                "/nologo",
+                "/v:minimal"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            },
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}

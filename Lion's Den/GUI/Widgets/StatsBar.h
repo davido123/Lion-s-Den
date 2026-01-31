@@ -1,3 +1,5 @@
+#ifndef STATSBAR_H_
+#define STATSBAR_H_
 
 #include <string>
 #include <sstream>
@@ -49,3 +51,5 @@ protected:
 	int mana;
 	int experience;
 };
+
+#endif /* STATSBAR_H_ */

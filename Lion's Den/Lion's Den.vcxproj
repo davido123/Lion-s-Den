@@ -169,6 +169,15 @@
     <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\IO\TextFile.cpp" />
     <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\main.cpp" />
     <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Map.cpp" />
+    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Systems\SceneManager.cpp" />
+    <ClCompile Include="Systems\ImGuiManager.cpp" />
+    <ClCompile Include="Systems\UIManager.cpp" />
+    <ClCompile Include="GUI\ImGuiHelper.cpp" />
+    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Scenes\MainMenuScene.cpp" />
+    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Scenes\GameScene.cpp" />
+    <ClCompile Include="Scenes\OptionsScene.cpp" />
+    <ClCompile Include="Scenes\HelpScene.cpp" />
+    <ClCompile Include="Scenes\LoadGameScene.cpp" />
     <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Player.cpp" />
     <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Render\Animation.cpp" />
     <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Render\Camera.cpp" />
@@ -195,6 +204,7 @@
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="Slot.cpp" />
     <ClCompile Include="TileCollider.cpp" />
+    <ClCompile Include="Game\Game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Common\constants.h" />
@@ -225,6 +235,16 @@
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\IO\TextFile.h" />
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Map.h" />
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Player.h" />
+    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Scenes\Scene.h" />
+    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Scenes\MainMenuScene.h" />
+    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Scenes\GameScene.h" />
+    <ClInclude Include="Scenes\OptionsScene.h" />
+    <ClInclude Include="Scenes\HelpScene.h" />
+    <ClInclude Include="Scenes\LoadGameScene.h" />
+    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Systems\SceneManager.h" />
+    <ClInclude Include="Systems\ImGuiManager.h" />
+    <ClInclude Include="Systems\UIManager.h" />
+    <ClInclude Include="GUI\ImGuiHelper.h" />
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Animation.h" />
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Camera.h" />
     <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Drawer.h" />
@@ -292,6 +312,9 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileCollider.h" />
     <ClInclude Include="Tileson\tileson.hpp" />
+    <ClInclude Include="Game\Game.h" />
+    <ClInclude Include="Scenes\Scene.h" />
+    <ClInclude Include="Systems\SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Lion%27s Den.rc" />

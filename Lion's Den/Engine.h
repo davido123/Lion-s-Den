@@ -89,9 +89,6 @@ public://own functions
 
 
 private:
-	virtual void DrawOptionsMenu();
-	virtual void DrawLoadMenu();
-	virtual void DrawHelpMenu();
 	virtual void RepositionGuiAtResChange();
 	virtual void OnRenderDebugGui();
 	virtual void SaveGame();

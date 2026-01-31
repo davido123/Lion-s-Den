@@ -17,3 +17,6 @@ DebugUI* DebugUI::GetInstance(const std::string& value)
     return DebugUI_;
 }
 
+void DebugUI::RenderDebug() {
+    // Default implementation - can be overridden in derived classes
+}
