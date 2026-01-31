@@ -70,10 +70,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\david\source\repos\Lion%27s Den\Lion%27s Den;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Users\david\source\repos\Lion%27s Den\Lion%27s Den;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -144,47 +144,47 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Common\FPScounter.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Core\Audio.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Core\Collider.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Core\Object.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Core\Resources.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Core\Timer.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Core\Vec2.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Engine.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Cursor.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\GUI.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Text.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widget.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\Box.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\Button.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\CheckBox.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\ComboBox.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\ProgressBar.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\ScrollArea.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Window.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\IO\File.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\IO\Keyboard.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\IO\Mouse.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\IO\TextFile.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\main.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Map.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Systems\SceneManager.cpp" />
+    <ClCompile Include="Common\FPScounter.cpp" />
+    <ClCompile Include="Core\Audio.cpp" />
+    <ClCompile Include="Core\Collider.cpp" />
+    <ClCompile Include="Core\Object.cpp" />
+    <ClCompile Include="Core\Resources.cpp" />
+    <ClCompile Include="Core\Timer.cpp" />
+    <ClCompile Include="Core\Vec2.cpp" />
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="GUI\Cursor.cpp" />
+    <ClCompile Include="GUI\GUI.cpp" />
+    <ClCompile Include="GUI\Text.cpp" />
+    <ClCompile Include="GUI\Widget.cpp" />
+    <ClCompile Include="GUI\Widgets\Box.cpp" />
+    <ClCompile Include="GUI\Widgets\Button.cpp" />
+    <ClCompile Include="GUI\Widgets\CheckBox.cpp" />
+    <ClCompile Include="GUI\Widgets\ComboBox.cpp" />
+    <ClCompile Include="GUI\Widgets\ProgressBar.cpp" />
+    <ClCompile Include="GUI\Widgets\ScrollArea.cpp" />
+    <ClCompile Include="GUI\Window.cpp" />
+    <ClCompile Include="IO\File.cpp" />
+    <ClCompile Include="IO\Keyboard.cpp" />
+    <ClCompile Include="IO\Mouse.cpp" />
+    <ClCompile Include="IO\TextFile.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Systems\SceneManager.cpp" />
     <ClCompile Include="Systems\EventSystem.cpp" />
     <ClCompile Include="Systems\ImGuiManager.cpp" />
     <ClCompile Include="Systems\UIManager.cpp" />
     <ClCompile Include="GUI\ImGuiHelper.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Scenes\MainMenuScene.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Scenes\GameScene.cpp" />
+    <ClCompile Include="Scenes\MainMenuScene.cpp" />
+    <ClCompile Include="Scenes\GameScene.cpp" />
     <ClCompile Include="Scenes\OptionsScene.cpp" />
     <ClCompile Include="Scenes\HelpScene.cpp" />
     <ClCompile Include="Scenes\LoadGameScene.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Player.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Render\Animation.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Render\Camera.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Render\Drawer.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Render\Sprite.cpp" />
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Render\Surface.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Render\Animation.cpp" />
+    <ClCompile Include="Render\Camera.cpp" />
+    <ClCompile Include="Render\Drawer.cpp" />
+    <ClCompile Include="Render\Sprite.cpp" />
+    <ClCompile Include="Render\Surface.cpp" />
     <ClCompile Include="DebugUI.cpp" />
     <ClCompile Include="GUI\Widgets\CharacterStats.cpp" />
     <ClCompile Include="GUI\Widgets\Inventory.cpp" />
@@ -209,52 +209,53 @@
     <ClCompile Include="Components\Component.cpp" />
     <ClCompile Include="Components\HealthComponent.cpp" />
     <ClCompile Include="Components\MovementComponent.cpp" />
+    <ClCompile Include="Dungeon\DungeonGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Common\constants.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Common\FPScounter.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Common\sys.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Core\Audio.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Core\Collider.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Core\Object.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Core\Resources.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Core\Timer.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Core\Vec2.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Engine.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\colors.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Cursor.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\GUI.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Text.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widget.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\Box.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\Button.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\CheckBox.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\ComboBox.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\ProgressBar.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\ScrollArea.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Window.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\IO\File.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\IO\Keyboard.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\IO\Mouse.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\IO\TextFile.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Map.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Player.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Scenes\Scene.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Scenes\MainMenuScene.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Scenes\GameScene.h" />
+    <ClInclude Include="Common\constants.h" />
+    <ClInclude Include="Common\FPScounter.h" />
+    <ClInclude Include="Common\sys.h" />
+    <ClInclude Include="Core\Audio.h" />
+    <ClInclude Include="Core\Collider.h" />
+    <ClInclude Include="Core\Object.h" />
+    <ClInclude Include="Core\Resources.h" />
+    <ClInclude Include="Core\Timer.h" />
+    <ClInclude Include="Core\Vec2.h" />
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="GUI\colors.h" />
+    <ClInclude Include="GUI\Cursor.h" />
+    <ClInclude Include="GUI\GUI.h" />
+    <ClInclude Include="GUI\Text.h" />
+    <ClInclude Include="GUI\Widget.h" />
+    <ClInclude Include="GUI\Widgets\Box.h" />
+    <ClInclude Include="GUI\Widgets\Button.h" />
+    <ClInclude Include="GUI\Widgets\CheckBox.h" />
+    <ClInclude Include="GUI\Widgets\ComboBox.h" />
+    <ClInclude Include="GUI\Widgets\ProgressBar.h" />
+    <ClInclude Include="GUI\Widgets\ScrollArea.h" />
+    <ClInclude Include="GUI\Window.h" />
+    <ClInclude Include="IO\File.h" />
+    <ClInclude Include="IO\Keyboard.h" />
+    <ClInclude Include="IO\Mouse.h" />
+    <ClInclude Include="IO\TextFile.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Scenes\Scene.h" />
+    <ClInclude Include="Scenes\MainMenuScene.h" />
+    <ClInclude Include="Scenes\GameScene.h" />
     <ClInclude Include="Scenes\OptionsScene.h" />
     <ClInclude Include="Scenes\HelpScene.h" />
     <ClInclude Include="Scenes\LoadGameScene.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Systems\SceneManager.h" />
+    <ClInclude Include="Systems\SceneManager.h" />
     <ClInclude Include="Systems\EventSystem.h" />
     <ClInclude Include="Systems\ImGuiManager.h" />
     <ClInclude Include="Systems\UIManager.h" />
     <ClInclude Include="GUI\ImGuiHelper.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Animation.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Camera.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Drawer.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Sprite.h" />
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Surface.h" />
+    <ClInclude Include="Render\Animation.h" />
+    <ClInclude Include="Render\Camera.h" />
+    <ClInclude Include="Render\Drawer.h" />
+    <ClInclude Include="Render\Sprite.h" />
+    <ClInclude Include="Render\Surface.h" />
     <ClInclude Include="DebugUI.h" />
     <ClInclude Include="GUI\Widgets\CharacterStats.h" />
     <ClInclude Include="GUI\Widgets\Inventory.h" />
@@ -321,11 +322,14 @@
     <ClInclude Include="Components\Component.h" />
     <ClInclude Include="Components\HealthComponent.h" />
     <ClInclude Include="Components\MovementComponent.h" />
+    <ClInclude Include="Dungeon\DungeonConfig.h" />
+    <ClInclude Include="Dungeon\DungeonGenerator.h" />
+    <ClInclude Include="Dungeon\DungeonTileSet.h" />
     <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="Systems\SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Lion%27s Den.rc" />
+    <ResourceCompile Include="LionsDen.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon1.ico" />

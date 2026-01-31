@@ -5,7 +5,7 @@
       "name": "Debug (MSVC)",
       "type": "cppvsdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/x64/Debug/Lion's Den.exe",
+      "program": "${workspaceFolder}/x64/Debug/LionsDen.exe",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}/x64/Debug",
@@ -17,7 +17,7 @@
       "name": "Release (MSVC)",
       "type": "cppvsdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/x64/Release/Lion's Den.exe",
+      "program": "${workspaceFolder}/x64/Release/LionsDen.exe",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}/x64/Release",
@@ -32,8 +32,8 @@
       "args": [],
       "stopAtEntry": false,
       "console": "externalTerminal",
-      "cwd": "c:/Users/david/source/repos/Lion's Den",
-      "program": "c:/Users/david/source/repos/Lion's Den/build/Release/outRelease"
+      "cwd": ".",
+      "program": "build/Debug/outDebug"
     }
   ]
 }

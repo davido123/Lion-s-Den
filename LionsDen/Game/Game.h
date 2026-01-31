@@ -97,6 +97,11 @@ public:
 	void LoadGame();
 	void NewGame(const std::string& saveName);
 	void SetSavename(const std::string& name) { savename = name; }
+
+	/** Load a generated dungeon floor (use instead of LoadJson when starting in dungeon). Sets map, collision, and player spawn. */
+	void LoadDungeonFloor(int floorLevel);
+	int GetCurrentDungeonLevel() const { return _currentDungeonLevel; }
+	bool IsInDungeon() const { return map2 && map2->IsGenerated(); }
 	
 	// UI Menu rendering (moved to scenes - kept for backward compatibility during migration)
 	void OnRenderDebugGui();
@@ -144,6 +149,8 @@ private:
 	// Game elements
 	Player* player;
 	Map* map2;
+	int _currentDungeonLevel = 0;  // 0 = not in dungeon (e.g. Village), 1+ = dungeon floor
+	Vec2 _lastDungeonSpawn;        // Pixel position for player spawn when in generated dungeon
 	
 	// Singletons
 	Settings* settings;

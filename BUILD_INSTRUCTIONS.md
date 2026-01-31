@@ -1,4 +1,14 @@
-# How to Compile Lion's Den Project in Cursor
+# How to Compile LionsDen Project in Cursor
+
+## One-time: Remove apostrophe from paths (if not done yet)
+
+To avoid PowerShell/script issues with the apostrophe in "Lion's Den", run once from repo root:
+
+```powershell
+.\rename_to_lionsden.ps1
+```
+
+This renames the inner project folder to `LionsDen`, removes old `Lion's Den.*` files, and deletes `Lion's Den.sln`. After that, use `LionsDen.sln` and `LionsDen.exe` everywhere.
 
 ## Method 1: Using the Build Script (Recommended)
 
@@ -19,12 +29,12 @@
 
 ### For Release Build:
 ```powershell
-& "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" "Lion's Den\Lion's Den.sln" /p:Configuration=Release /p:Platform=x64 /t:Build
+& "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" "LionsDen.sln" /p:Configuration=Release /p:Platform=x64 /t:Build
 ```
 
 ### For Debug Build:
 ```powershell
-& "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" "Lion's Den\Lion's Den.sln" /p:Configuration=Debug /p:Platform=x64 /t:Build
+& "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" "LionsDen.sln" /p:Configuration=Debug /p:Platform=x64 /t:Build
 ```
 
 ## Method 3: Using Visual Studio
@@ -35,8 +45,8 @@
 
 ## Output Location
 
-- **Release**: `x64\Release\Lion's Den.exe`
-- **Debug**: `x64\Debug\Lion's Den.exe`
+- **Release**: `x64\Release\LionsDen.exe`
+- **Debug**: `x64\Debug\LionsDen.exe`
 
 ## Troubleshooting
 

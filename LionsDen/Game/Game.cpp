@@ -1,6 +1,9 @@
 #include "Game.h"
 #include "../Scenes/MainMenuScene.h"
 #include "../Systems/SceneManager.h"
+#include "../Dungeon/DungeonGenerator.h"
+#include "../Dungeon/DungeonConfig.h"
+#include "../Core/Collider.h"
 #include <fstream>
 #include <algorithm>
 #include <sstream>
@@ -55,11 +58,16 @@ void Game::OnGameInit() {
 	LoadImGuiSettings();
 	
 	
-	//Load map file
+	//Load map file (static map or first dungeon floor for testing)
 	map2 = new Map;
-	map2->LoadJson("Data/Maps/Map.json");
-	map2->GetCollisionBoxes();
-	map2->RegisterCollisionBoxes();
+	static const bool kStartInDungeon = false;  // Set true to test generated dungeon
+	if (kStartInDungeon) {
+		LoadDungeonFloor(1);
+	} else {
+		map2->LoadJson("Data/Maps/Map.json");
+		map2->GetCollisionBoxes();
+		map2->RegisterCollisionBoxes();
+	}
 
 	//Initializing layers
 	if (_engine) {
@@ -102,6 +110,10 @@ void Game::OnGameInit() {
 
 	Player_Inventory->ConnectPlayer(player);
 	layer_player->Connect(player);
+
+	if (map2->IsGenerated() && player) {
+		player->SetPos(_lastDungeonSpawn);
+	}
 }
 
 void Game::SetupMainMenu() {
@@ -579,7 +591,10 @@ void Game::NewGame(const std::string& saveName) {
 	for (auto i : Monster::MonsterList) {
 		layer_player->Connect(i);
 	}
-	player->SetPos(Vec2(300.0f, 300.0f));
+	if (map2->IsGenerated())
+		player->SetPos(_lastDungeonSpawn);
+	else
+		player->SetPos(Vec2(300.0f, 300.0f));
 	GuiBox_StatsBar->Show(true);
 	player->isDead = false;
 	Collider::RegisterObject(player,player->GetColliderPos(),player-> GetColliderBox(),false);
@@ -592,9 +607,24 @@ void Game::NewGame(const std::string& saveName) {
 	}
 }
 
-// DrawOptionsMenu removed - functionality moved to OptionsScene
-// DrawHelpMenu removed - functionality moved to HelpScene  
-// DrawLoadMenu removed - functionality moved to LoadGameScene
+// DrawOptionsMenu removed - functionality moved to scenes
+
+void Game::LoadDungeonFloor(int floorLevel) {
+	DungeonConfig config;
+	DungeonGenerator gen;
+	DungeonGenerator::Grid grid;
+	std::vector<DungeonRoom> rooms;
+	if (!gen.Generate(floorLevel, config, grid, rooms)) return;
+	if (!map2->LoadFromGenerated(config.gridWidth, config.gridHeight, grid)) return;
+	map2->GetCollisionBoxes();
+	map2->RegisterCollisionBoxes();
+	Vec2 spawnTile = DungeonGenerator::GetStartRoomSpawn(rooms);
+	_lastDungeonSpawn.x = spawnTile.x * static_cast<float>(Map::SCALED_TILE_SIZE);
+	_lastDungeonSpawn.y = spawnTile.y * static_cast<float>(Map::SCALED_TILE_SIZE);
+	_currentDungeonLevel = floorLevel;
+	Monster::MonsterList.clear();
+	if (player) player->SetPos(_lastDungeonSpawn);
+}
 
 void Game::OnGameCleanup() {
 	Resources::UnloadAll();

@@ -1,4 +1,4 @@
-# Build script for Lion's Den project
+# Build script for LionsDen project
 # Usage: .\build.ps1 [Debug|Release]
 
 param(
@@ -34,7 +34,7 @@ Write-Host "Platform: $Platform" -ForegroundColor Cyan
 Write-Host ""
 
 # Build the project
-& $msbuild "Lion's Den\Lion's Den.sln" `
+& $msbuild "LionsDen.sln" `
     /p:Configuration=$Configuration `
     /p:Platform=$Platform `
     /t:Rebuild `
@@ -45,7 +45,7 @@ if ($LASTEXITCODE -eq 0) {
     Write-Host ""
     Write-Host "Build succeeded!" -ForegroundColor Green
     
-    $exePath = "x64\$Configuration\Lion's Den.exe"
+    $exePath = "x64\$Configuration\LionsDen.exe"
     if (Test-Path $exePath) {
         Write-Host "Executable: $exePath" -ForegroundColor Green
     }

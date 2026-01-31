@@ -1,9 +1,9 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1145
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lion's Den", "Lion's Den\Lion's Den.vcxproj", "{3E6DF26D-189A-476F-A0D6-DF8C703F1B8A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LionsDen", "LionsDen\LionsDen.vcxproj", "{3E6DF26D-189A-476F-A0D6-DF8C703F1B8A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

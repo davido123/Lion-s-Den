@@ -44,6 +44,11 @@ public:
 	bool LoadJson(std::string path);
 	bool SaveJson(std::string path);
 
+	/** Load from procedural dungeon grid (from DungeonGenerator). Uses same tileset; walls get collision. */
+	bool LoadFromGenerated(int width, int height, const std::vector<std::vector<int>>& grid);
+	/** True if map is in generated (dungeon) mode rather than Tiled JSON. */
+	bool IsGenerated() const { return _generatedW > 0 && _generatedH > 0; }
+
 
 
 	void Draw();
@@ -66,7 +71,10 @@ public:
 	void SetMapSizePixels(Vec2 size);
 
 private:
-	std::unique_ptr<tson::Map> _map; //Tileson Map container
+	std::unique_ptr<tson::Map> _map; //Tileson Map container (null when using generated grid)
+	std::vector<std::vector<int>> _generatedGrid; // tile IDs per cell when IsGenerated()
+	int _generatedW = 0;
+	int _generatedH = 0;
 
 	SDL_Texture* _tileset_texture;
 	Sprite _draw_sprite;

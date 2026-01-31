@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{d6d8c151-7f15-491c-9cb6-3caa8df9b48b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Common">
+      <UniqueIdentifier>{85b6211e-cf39-4ec5-8aa8-fe311103ae5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Core">
+      <UniqueIdentifier>{2b511395-928b-4c2c-98b5-f80889787ab8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GUI">
+      <UniqueIdentifier>{1e55f103-bed3-4cf6-8d95-213312914c0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GUI\Widgets">
+      <UniqueIdentifier>{c682e66c-cf22-4a74-a0f4-b7c7494d9772}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Render">
+      <UniqueIdentifier>{06bdae3b-5bf8-409a-bd65-be887011c21b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\IO">
+      <UniqueIdentifier>{d012d660-8398-4d4b-aa18-ec38852ea78f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGUI">
+      <UniqueIdentifier>{779348db-90a7-4cdb-aa2e-61a7a8460399}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tileson">
+      <UniqueIdentifier>{531f86f4-69b1-4d80-8c45-aaf9d249442e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dungeon">
+      <UniqueIdentifier>{a1b2c3d4-e5f6-7890-abcd-ef1234567890}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\FPScounter.cpp">
+      <Filter>Engine\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Audio.cpp">
+      <Filter>Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Collider.cpp">
+      <Filter>Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Object.cpp">
+      <Filter>Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Resources.cpp">
+      <Filter>Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Timer.cpp">
+      <Filter>Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Vec2.cpp">
+      <Filter>Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Cursor.cpp">
+      <Filter>Engine\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\GUI.cpp">
+      <Filter>Engine\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Text.cpp">
+      <Filter>Engine\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Widget.cpp">
+      <Filter>Engine\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Window.cpp">
+      <Filter>Engine\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Widgets\Box.cpp">
+      <Filter>Engine\GUI\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Widgets\Button.cpp">
+      <Filter>Engine\GUI\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Widgets\CheckBox.cpp">
+      <Filter>Engine\GUI\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Widgets\ComboBox.cpp">
+      <Filter>Engine\GUI\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Widgets\ProgressBar.cpp">
+      <Filter>Engine\GUI\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Widgets\ScrollArea.cpp">
+      <Filter>Engine\GUI\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\File.cpp">
+      <Filter>Engine\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Keyboard.cpp">
+      <Filter>Engine\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\Mouse.cpp">
+      <Filter>Engine\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\TextFile.cpp">
+      <Filter>Engine\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Animation.cpp">
+      <Filter>Engine\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Camera.cpp">
+      <Filter>Engine\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Drawer.cpp">
+      <Filter>Engine\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Sprite.cpp">
+      <Filter>Engine\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Surface.cpp">
+      <Filter>Engine\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui.cpp">
+      <Filter>ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_demo.cpp">
+      <Filter>ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_draw.cpp">
+      <Filter>ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_sdl.cpp">
+      <Filter>ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_tables.cpp">
+      <Filter>ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_widgets.cpp">
+      <Filter>ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_sdl.cpp">
+      <Filter>ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TileCollider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Widgets\StatsBar.cpp">
+      <Filter>Engine\GUI\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="PathAlgorithm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Widgets\CharacterStats.cpp">
+      <Filter>Engine\GUI\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Widgets\Inventory.cpp">
+      <Filter>Engine\GUI\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Settings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugUI.cpp">
+      <Filter>Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\JsonBase.cpp">
+      <Filter>Engine\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_stdlib.cpp">
+      <Filter>ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="navigator.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Slot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dungeon\DungeonGenerator.cpp">
+      <Filter>Dungeon</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Common\constants.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\FPScounter.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\sys.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Audio.h">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Collider.h">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Object.h">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Resources.h">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Timer.h">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Vec2.h">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\colors.h">
+      <Filter>Engine\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Cursor.h">
+      <Filter>Engine\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\GUI.h">
+      <Filter>Engine\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Text.h">
+      <Filter>Engine\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Widget.h">
+      <Filter>Engine\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Window.h">
+      <Filter>Engine\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Widgets\Box.h">
+      <Filter>Engine\GUI\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Widgets\Button.h">
+      <Filter>Engine\GUI\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Widgets\CheckBox.h">
+      <Filter>Engine\GUI\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Widgets\ComboBox.h">
+      <Filter>Engine\GUI\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Widgets\ProgressBar.h">
+      <Filter>Engine\GUI\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Widgets\ScrollArea.h">
+      <Filter>Engine\GUI\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\File.h">
+      <Filter>Engine\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Keyboard.h">
+      <Filter>Engine\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\Mouse.h">
+      <Filter>Engine\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\TextFile.h">
+      <Filter>Engine\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Animation.h">
+      <Filter>Engine\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Camera.h">
+      <Filter>Engine\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Drawer.h">
+      <Filter>Engine\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Sprite.h">
+      <Filter>Engine\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Surface.h">
+      <Filter>Engine\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imconfig.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_sdl.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_internal.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_rectpack.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_textedit.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_truetype.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_sdl.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Tileson\tileson.hpp">
+      <Filter>Tileson</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_struct.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TileCollider.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Widgets\StatsBar.h">
+      <Filter>Engine\GUI\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="PathAlgorithm.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Widgets\CharacterStats.h">
+      <Filter>Engine\GUI\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Widgets\Inventory.h">
+      <Filter>Engine\GUI\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\allocators.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\cursorstreamwrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\document.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\encodedstream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\encodings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\error\en.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\error\error.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\filereadstream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\filewritestream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\fwd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\biginteger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\clzll.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\diyfp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\dtoa.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\ieee754.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\itoa.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\meta.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\pow10.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\regex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\stack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\strfunc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\strtod.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\internal\swap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\istreamwrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\memorybuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\memorystream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\msinttypes\inttypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\msinttypes\stdint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\ostreamwrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\pointer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\prettywriter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\reader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\schema.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\stream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\stringbuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\uri.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\writer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugUI.h">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\JsonBase.h">
+      <Filter>Engine\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_stdlib.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Slot.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="LionsDen.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

@@ -54,8 +54,8 @@ MSVC integration has been configured for your project. Here's what was set up:
 - The build tasks automatically find MSBuild from Visual Studio 2022
 - If you have a different VS installation path, update `tasks.json`
 - Executables are located at:
-  - Debug: `x64/Debug/Lion's Den.exe`
-  - Release: `x64/Release/Lion's Den.exe`
+  - Debug: `x64/Debug/LionsDen.exe`
+  - Release: `x64/Release/LionsDen.exe`
 
 ## 🔧 Troubleshooting
 

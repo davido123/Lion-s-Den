@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -40,99 +40,102 @@
     <Filter Include="Tileson">
       <UniqueIdentifier>{531f86f4-69b1-4d80-8c45-aaf9d249442e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Dungeon">
+      <UniqueIdentifier>{a1b2c3d4-e5f6-7890-abcd-ef1234567890}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\main.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Common\FPScounter.cpp">
+    <ClCompile Include="Common\FPScounter.cpp">
       <Filter>Engine\Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Engine.cpp">
+    <ClCompile Include="Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Core\Audio.cpp">
+    <ClCompile Include="Core\Audio.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Core\Collider.cpp">
+    <ClCompile Include="Core\Collider.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Core\Object.cpp">
+    <ClCompile Include="Core\Object.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Core\Resources.cpp">
+    <ClCompile Include="Core\Resources.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Core\Timer.cpp">
+    <ClCompile Include="Core\Timer.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Core\Vec2.cpp">
+    <ClCompile Include="Core\Vec2.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Cursor.cpp">
+    <ClCompile Include="GUI\Cursor.cpp">
       <Filter>Engine\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\GUI.cpp">
+    <ClCompile Include="GUI\GUI.cpp">
       <Filter>Engine\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Text.cpp">
+    <ClCompile Include="GUI\Text.cpp">
       <Filter>Engine\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widget.cpp">
+    <ClCompile Include="GUI\Widget.cpp">
       <Filter>Engine\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Window.cpp">
+    <ClCompile Include="GUI\Window.cpp">
       <Filter>Engine\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\Box.cpp">
+    <ClCompile Include="GUI\Widgets\Box.cpp">
       <Filter>Engine\GUI\Widgets</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\Button.cpp">
+    <ClCompile Include="GUI\Widgets\Button.cpp">
       <Filter>Engine\GUI\Widgets</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\CheckBox.cpp">
+    <ClCompile Include="GUI\Widgets\CheckBox.cpp">
       <Filter>Engine\GUI\Widgets</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\ComboBox.cpp">
+    <ClCompile Include="GUI\Widgets\ComboBox.cpp">
       <Filter>Engine\GUI\Widgets</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\ProgressBar.cpp">
+    <ClCompile Include="GUI\Widgets\ProgressBar.cpp">
       <Filter>Engine\GUI\Widgets</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\ScrollArea.cpp">
+    <ClCompile Include="GUI\Widgets\ScrollArea.cpp">
       <Filter>Engine\GUI\Widgets</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\IO\File.cpp">
+    <ClCompile Include="IO\File.cpp">
       <Filter>Engine\IO</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\IO\Keyboard.cpp">
+    <ClCompile Include="IO\Keyboard.cpp">
       <Filter>Engine\IO</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\IO\Mouse.cpp">
+    <ClCompile Include="IO\Mouse.cpp">
       <Filter>Engine\IO</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\IO\TextFile.cpp">
+    <ClCompile Include="IO\TextFile.cpp">
       <Filter>Engine\IO</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Render\Animation.cpp">
+    <ClCompile Include="Render\Animation.cpp">
       <Filter>Engine\Render</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Render\Camera.cpp">
+    <ClCompile Include="Render\Camera.cpp">
       <Filter>Engine\Render</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Render\Drawer.cpp">
+    <ClCompile Include="Render\Drawer.cpp">
       <Filter>Engine\Render</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Render\Sprite.cpp">
+    <ClCompile Include="Render\Sprite.cpp">
       <Filter>Engine\Render</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Render\Surface.cpp">
+    <ClCompile Include="Render\Surface.cpp">
       <Filter>Engine\Render</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Player.cpp">
+    <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Lion%27s Den\Lion%27s Den\Map.cpp">
+    <ClCompile Include="Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui.cpp">
@@ -195,105 +198,108 @@
     <ClCompile Include="Slot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Dungeon\DungeonGenerator.cpp">
+      <Filter>Dungeon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Common\constants.h">
+    <ClInclude Include="Common\constants.h">
       <Filter>Engine\Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Common\FPScounter.h">
+    <ClInclude Include="Common\FPScounter.h">
       <Filter>Engine\Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Common\sys.h">
+    <ClInclude Include="Common\sys.h">
       <Filter>Engine\Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Engine.h">
+    <ClInclude Include="Engine.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Core\Audio.h">
+    <ClInclude Include="Core\Audio.h">
       <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Core\Collider.h">
+    <ClInclude Include="Core\Collider.h">
       <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Core\Object.h">
+    <ClInclude Include="Core\Object.h">
       <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Core\Resources.h">
+    <ClInclude Include="Core\Resources.h">
       <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Core\Timer.h">
+    <ClInclude Include="Core\Timer.h">
       <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Core\Vec2.h">
+    <ClInclude Include="Core\Vec2.h">
       <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\colors.h">
+    <ClInclude Include="GUI\colors.h">
       <Filter>Engine\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Cursor.h">
+    <ClInclude Include="GUI\Cursor.h">
       <Filter>Engine\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\GUI.h">
+    <ClInclude Include="GUI\GUI.h">
       <Filter>Engine\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Text.h">
+    <ClInclude Include="GUI\Text.h">
       <Filter>Engine\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widget.h">
+    <ClInclude Include="GUI\Widget.h">
       <Filter>Engine\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Window.h">
+    <ClInclude Include="GUI\Window.h">
       <Filter>Engine\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\Box.h">
+    <ClInclude Include="GUI\Widgets\Box.h">
       <Filter>Engine\GUI\Widgets</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\Button.h">
+    <ClInclude Include="GUI\Widgets\Button.h">
       <Filter>Engine\GUI\Widgets</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\CheckBox.h">
+    <ClInclude Include="GUI\Widgets\CheckBox.h">
       <Filter>Engine\GUI\Widgets</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\ComboBox.h">
+    <ClInclude Include="GUI\Widgets\ComboBox.h">
       <Filter>Engine\GUI\Widgets</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\ProgressBar.h">
+    <ClInclude Include="GUI\Widgets\ProgressBar.h">
       <Filter>Engine\GUI\Widgets</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\GUI\Widgets\ScrollArea.h">
+    <ClInclude Include="GUI\Widgets\ScrollArea.h">
       <Filter>Engine\GUI\Widgets</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\IO\File.h">
+    <ClInclude Include="IO\File.h">
       <Filter>Engine\IO</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\IO\Keyboard.h">
+    <ClInclude Include="IO\Keyboard.h">
       <Filter>Engine\IO</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\IO\Mouse.h">
+    <ClInclude Include="IO\Mouse.h">
       <Filter>Engine\IO</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\IO\TextFile.h">
+    <ClInclude Include="IO\TextFile.h">
       <Filter>Engine\IO</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Animation.h">
+    <ClInclude Include="Render\Animation.h">
       <Filter>Engine\Render</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Camera.h">
+    <ClInclude Include="Render\Camera.h">
       <Filter>Engine\Render</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Drawer.h">
+    <ClInclude Include="Render\Drawer.h">
       <Filter>Engine\Render</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Sprite.h">
+    <ClInclude Include="Render\Sprite.h">
       <Filter>Engine\Render</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Render\Surface.h">
+    <ClInclude Include="Render\Surface.h">
       <Filter>Engine\Render</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Map.h">
+    <ClInclude Include="Map.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lion%27s Den\Lion%27s Den\Player.h">
+    <ClInclude Include="Player.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imconfig.h">
@@ -484,7 +490,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Lion%27s Den.rc">
+    <ResourceCompile Include="LionsDen.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
